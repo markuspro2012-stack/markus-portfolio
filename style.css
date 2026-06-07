@@ -567,20 +567,11 @@ body::before {
 }
 
 .skill-card:hover {
-    background: var(--acc);
     border-color: var(--acc);
     z-index: 2;
-    box-shadow: 5px 5px 0 rgba(0,0,0,0.6);
+    box-shadow: 4px 4px 0 var(--acc);
     transform: translate(-2px, -2px);
 }
-
-.skill-card:hover .sk-name,
-.skill-card:hover .sk-desc,
-.skill-card:hover .sk-num,
-.skill-card:hover .sk-icon { color: var(--bg) !important; }
-
-.skill-card:hover .sk-bar-wrap { background: rgba(0,0,0,0.15); }
-.skill-card:hover .sk-bar      { background: var(--bg); }
 
 .sk-num {
     font-family: var(--font-d);
