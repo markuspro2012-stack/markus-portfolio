@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Markus — Web Developer & Telegram Bot Developer. Building fast, modern web applications and powerful Telegram bots.">
-    <title>MARKUS — Web & Telegram Developer</title>
+    <meta name="description" content="Markus — Web Developer & Telegram Bot Developer. Building fast, modern websites and powerful Telegram bots.">
+    <title>Markus — Web & Telegram Developer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,418 +15,318 @@
     <!-- NAV -->
     <nav class="nav" id="nav">
         <div class="nav-inner">
-            <a class="nav-logo" href="#hero">MARKUS<span class="logo-dot">▪</span></a>
+            <a class="nav-logo" href="#hero">Markus.</a>
             <ul class="nav-links">
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#portfolio">Work</a></li>
                 <li><a href="#services">Services</a></li>
-                <li><a href="#contact" class="nav-hire">Hire Me ↗</a></li>
             </ul>
+            <a href="#contact" class="nav-cta">Hire me →</a>
             <button class="burger" id="burger" aria-label="Menu" aria-expanded="false">
                 <span></span><span></span><span></span>
             </button>
         </div>
         <div class="nav-drawer" id="navDrawer">
-            <a href="#skills">SKILLS</a>
-            <a href="#portfolio">WORK</a>
-            <a href="#services">SERVICES</a>
-            <a href="#contact" class="drawer-hire">HIRE ME ↗</a>
+            <a href="#skills">Skills</a>
+            <a href="#portfolio">Work</a>
+            <a href="#services">Services</a>
+            <a href="#contact">Hire me →</a>
         </div>
     </nav>
 
     <!-- HERO -->
     <section class="hero" id="hero">
-        <div class="hero-grid">
-
-            <!-- LEFT -->
-            <div class="hero-left">
-                <div class="hero-badge">
-                    <span class="badge-led"></span>AVAILABLE FOR WORK
-                </div>
-
-                <h1 class="hero-heading">
-                    <span class="h-line">WEB</span>
-                    <span class="h-line accent-line">DEVELOPER</span>
-                    <span class="h-line">&amp; TELEGRAM</span>
-                    <span class="h-line">BOT BUILDER.</span>
-                </h1>
-
-                <p class="hero-sub">
-                    Turning ideas into fast, modern websites<br>
-                    and powerful Telegram bots — from concept<br>
-                    to production.
-                </p>
-
-                <div class="hero-btns">
-                    <a href="#portfolio" class="btn btn-primary">VIEW PROJECTS ↗</a>
-                    <a href="#contact" class="btn btn-ghost">CONTACT ME</a>
-                </div>
-
-                <div class="hero-stats">
-                    <div class="stat">
-                        <span class="stat-n">4+</span>
-                        <span class="stat-l">Projects</span>
-                    </div>
-                    <span class="stat-sep">/</span>
-                    <div class="stat">
-                        <span class="stat-n">2+</span>
-                        <span class="stat-l">Years</span>
-                    </div>
-                    <span class="stat-sep">/</span>
-                    <div class="stat">
-                        <span class="stat-n">100%</span>
-                        <span class="stat-l">Satisfaction</span>
-                    </div>
-                </div>
+        <div class="container">
+            <div class="hero-badge reveal">
+                <span class="badge-dot"></span>
+                Available for work
             </div>
-
-            <!-- RIGHT — code decoration -->
-            <div class="hero-right" aria-hidden="true">
-                <div class="code-window">
-                    <div class="cw-bar">
-                        <span class="cw-dot cw-r"></span>
-                        <span class="cw-dot cw-y"></span>
-                        <span class="cw-dot cw-g"></span>
-                        <span class="cw-title">markus.config.js</span>
-                    </div>
-                    <div class="cw-body">
-                        <div class="code-line"><span class="c-kw">const</span> <span class="c-var">dev</span> <span class="c-op">=</span> <span class="c-br">{</span></div>
-                        <div class="code-line indent"><span class="c-key">name</span><span class="c-op">:</span> <span class="c-str">"Markus"</span><span class="c-op">,</span></div>
-                        <div class="code-line indent"><span class="c-key">role</span><span class="c-op">:</span> <span class="c-br">[</span></div>
-                        <div class="code-line indent2"><span class="c-str">"Web Developer"</span><span class="c-op">,</span></div>
-                        <div class="code-line indent2"><span class="c-str">"Telegram Bots"</span><span class="c-op">,</span></div>
-                        <div class="code-line indent2"><span class="c-str">"Mini Apps"</span><span class="c-op">,</span></div>
-                        <div class="code-line indent"><span class="c-br">]</span><span class="c-op">,</span></div>
-                        <div class="code-line indent"><span class="c-key">available</span><span class="c-op">:</span> <span class="c-bool">true</span><span class="c-op">,</span></div>
-                        <div class="code-line indent"><span class="c-key">projects</span><span class="c-op">:</span> <span class="c-num">4</span><span class="c-op">,</span></div>
-                        <div class="code-line"><span class="c-br">}</span></div>
-                        <div class="code-line">&nbsp;</div>
-                        <div class="code-line"><span class="c-kw">export default</span> <span class="c-var">dev</span><span class="c-cursor">█</span></div>
-                    </div>
-                </div>
-                <div class="hero-tag tag-1">JavaScript</div>
-                <div class="hero-tag tag-2">Telegram API</div>
-                <div class="hero-tag tag-3">Databases</div>
+            <h1 class="hero-heading reveal" style="--delay:80ms">
+                Web developer<br>
+                <em>&amp; Telegram</em><br>
+                bot builder.
+            </h1>
+            <p class="hero-sub reveal" style="--delay:160ms">
+                Turning ideas into fast, modern websites<br>
+                and powerful Telegram bots — from concept to production.
+            </p>
+            <div class="hero-btns reveal" style="--delay:240ms">
+                <a href="#portfolio" class="btn btn-dark">View projects →</a>
+                <a href="#contact" class="btn btn-outline">Contact me</a>
             </div>
-
-        </div>
-
-        <div class="hero-scroll-hint" aria-hidden="true">
-            <span>SCROLL DOWN</span>
-            <div class="scroll-arrow">↓</div>
         </div>
     </section>
 
-    <!-- ── SECTION DIVIDER ── -->
-    <div class="divider" aria-hidden="true"><span>01 ──── SKILLS</span></div>
+    <!-- STATS MARQUEE -->
+    <div class="stats-bar">
+        <div class="stats-track">
+            <div class="stat-item"><span class="stat-slash">/</span> 4+ Projects <span class="stat-sep">◆</span></div>
+            <div class="stat-item"><span class="stat-slash">/</span> 2+ Years Experience <span class="stat-sep">◆</span></div>
+            <div class="stat-item"><span class="stat-slash">/</span> 100% Satisfaction <span class="stat-sep">◆</span></div>
+            <div class="stat-item"><span class="stat-slash">/</span> Available Now <span class="stat-sep">◆</span></div>
+            <div class="stat-item"><span class="stat-slash">/</span> Web &amp; Telegram Dev <span class="stat-sep">◆</span></div>
+            <div class="stat-item"><span class="stat-slash">/</span> Full Stack <span class="stat-sep">◆</span></div>
+            <!-- duplicate for seamless loop -->
+            <div class="stat-item"><span class="stat-slash">/</span> 4+ Projects <span class="stat-sep">◆</span></div>
+            <div class="stat-item"><span class="stat-slash">/</span> 2+ Years Experience <span class="stat-sep">◆</span></div>
+            <div class="stat-item"><span class="stat-slash">/</span> 100% Satisfaction <span class="stat-sep">◆</span></div>
+            <div class="stat-item"><span class="stat-slash">/</span> Available Now <span class="stat-sep">◆</span></div>
+            <div class="stat-item"><span class="stat-slash">/</span> Web &amp; Telegram Dev <span class="stat-sep">◆</span></div>
+            <div class="stat-item"><span class="stat-slash">/</span> Full Stack <span class="stat-sep">◆</span></div>
+        </div>
+    </div>
 
     <!-- SKILLS -->
     <section class="section" id="skills">
         <div class="container">
-            <div class="section-head reveal">
-                <span class="sec-num">01</span>
-                <h2 class="sec-title">SKILLS &<br>TECHNOLOGIES</h2>
-                <p class="sec-desc">What I use to build fast, reliable products.</p>
+            <div class="skills-head reveal">
+                <p class="sec-label">Skills &amp; Technologies</p>
+                <h2 class="sec-title">What I build<br><em>with.</em></h2>
             </div>
-
             <div class="skills-grid">
 
                 <div class="skill-card reveal">
                     <span class="sk-num">01</span>
                     <div class="sk-icon">
-                        <svg viewBox="0 0 32 32" width="28" height="28"><text x="1" y="24" font-size="22" font-weight="800" font-family="monospace" fill="currentColor">JS</text></svg>
+                        <svg viewBox="0 0 32 32" width="22" height="22"><text x="1" y="23" font-size="20" font-weight="800" font-family="monospace" fill="currentColor">JS</text></svg>
                     </div>
                     <h3 class="sk-name">JavaScript</h3>
                     <p class="sk-desc">ES6+, async/await, DOM, Fetch API, modular architecture</p>
-                    <div class="sk-bar-wrap"><div class="sk-bar" style="--w:90%"></div></div>
                 </div>
 
-                <div class="skill-card reveal">
+                <div class="skill-card reveal" style="--delay:60ms">
                     <span class="sk-num">02</span>
                     <div class="sk-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
                     </div>
                     <h3 class="sk-name">HTML &amp; CSS</h3>
                     <p class="sk-desc">Semantic HTML5, CSS3, Grid, Flexbox, animations</p>
-                    <div class="sk-bar-wrap"><div class="sk-bar" style="--w:95%"></div></div>
                 </div>
 
-                <div class="skill-card reveal">
+                <div class="skill-card reveal" style="--delay:120ms">
                     <span class="sk-num">03</span>
                     <div class="sk-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
                     </div>
                     <h3 class="sk-name">Web Dev</h3>
                     <p class="sk-desc">SPAs, landing pages, e-commerce, dashboards, optimization</p>
-                    <div class="sk-bar-wrap"><div class="sk-bar" style="--w:88%"></div></div>
                 </div>
 
                 <div class="skill-card reveal">
                     <span class="sk-num">04</span>
                     <div class="sk-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></svg>
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></svg>
                     </div>
                     <h3 class="sk-name">Telegram Bots</h3>
                     <p class="sk-desc">aiogram 3, webhooks, FSM, inline keyboards, payments</p>
-                    <div class="sk-bar-wrap"><div class="sk-bar" style="--w:92%"></div></div>
                 </div>
 
-                <div class="skill-card reveal">
+                <div class="skill-card reveal" style="--delay:60ms">
                     <span class="sk-num">05</span>
                     <div class="sk-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
                     </div>
                     <h3 class="sk-name">Mini Apps</h3>
                     <p class="sk-desc">Telegram Web App API, React, TypeScript, seamless UX</p>
-                    <div class="sk-bar-wrap"><div class="sk-bar" style="--w:85%"></div></div>
                 </div>
 
-                <div class="skill-card reveal">
+                <div class="skill-card reveal" style="--delay:120ms">
                     <span class="sk-num">06</span>
                     <div class="sk-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
                     </div>
                     <h3 class="sk-name">Databases</h3>
                     <p class="sk-desc">PostgreSQL, Supabase, SQLite, data modeling, REST APIs</p>
-                    <div class="sk-bar-wrap"><div class="sk-bar" style="--w:82%"></div></div>
                 </div>
 
             </div>
         </div>
     </section>
 
-    <!-- ── DIVIDER ── -->
-    <div class="divider" aria-hidden="true"><span>02 ──── WORK</span></div>
-
     <!-- PORTFOLIO -->
-    <section class="section section-dark" id="portfolio">
+    <section class="section section-alt" id="portfolio">
         <div class="container">
-            <div class="section-head reveal">
-                <span class="sec-num">02</span>
-                <h2 class="sec-title">SELECTED<br>WORK</h2>
-                <p class="sec-desc">Projects built from idea to production.</p>
+            <div class="portfolio-head reveal">
+                <p class="sec-label">Selected Work</p>
+                <h2 class="sec-title">Projects built<br><em>to ship.</em></h2>
             </div>
 
             <div class="portfolio-list">
 
-                <article class="proj-card reveal">
-                    <div class="proj-num">01</div>
-                    <div class="proj-preview pp-1" aria-hidden="true">
-                        <div class="pp-mock">
-                            <div class="pp-bar">
-                                <span></span><span></span><span></span>
-                                <span class="pp-url">@fatcalories_bot</span>
-                            </div>
-                            <div class="pp-content">
-                                <div class="pp-icon">🤖</div>
-                                <div class="pp-lines">
-                                    <div class="pp-line ll"></div>
-                                    <div class="pp-line lm"></div>
-                                    <div class="pp-line ls"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <span class="proj-type-badge">TELEGRAM BOT</span>
+                <!-- 01 -->
+                <div class="proj-item reveal">
+                    <div class="proj-meta-row">
+                        <span class="proj-tag">Telegram Bot</span>
+                        <span class="proj-year">2024</span>
                     </div>
-                    <div class="proj-info">
-                        <h3 class="proj-title">FatCalories Bot</h3>
-                        <p class="proj-desc">Calorie-tracking Telegram bot. Users log meals, track daily intake, and get nutrition insights — all inside Telegram with a smooth conversational UI.</p>
+                    <h3 class="proj-title">FatCalories Bot</h3>
+                    <p class="proj-desc">Calorie-tracking Telegram bot. Users log meals, track daily intake, and get nutrition insights — all inside Telegram with a smooth conversational UI.</p>
+                    <div class="proj-footer">
                         <div class="proj-tech">
                             <span>Python</span><span>aiogram 3</span><span>Supabase</span><span>PostgreSQL</span>
                         </div>
-                        <div class="proj-meta">
-                            <span class="proj-status">● LIVE IN PRODUCTION</span>
-                            <span class="proj-users">100+ USERS</span>
+                        <a href="#contact" class="proj-link">Explore →</a>
+                    </div>
+                    <div class="proj-card">
+                        <div class="proj-card-mock">
+                            <span class="mock-icon">🤖</span>
+                            <div class="mock-lines">
+                                <div class="mock-line" style="width:200px"></div>
+                                <div class="mock-line" style="width:145px"></div>
+                                <div class="mock-line" style="width:175px"></div>
+                            </div>
                         </div>
+                        <span class="proj-badge">● Live in Production</span>
                     </div>
-                </article>
+                </div>
 
-                <article class="proj-card reveal">
-                    <div class="proj-num">02</div>
-                    <div class="proj-preview pp-2" aria-hidden="true">
-                        <img src="assets/fatbot.png" alt="FatBot Mini App" class="proj-screenshot proj-screenshot-mobile">
-                        <span class="proj-type-badge">MINI APP</span>
+                <!-- 02 -->
+                <div class="proj-item reveal">
+                    <div class="proj-meta-row">
+                        <span class="proj-tag">Telegram Mini App</span>
+                        <span class="proj-year">2024</span>
                     </div>
-                    <div class="proj-info">
-                        <h3 class="proj-title">FatBot Mini App</h3>
-                        <p class="proj-desc">Full-featured Telegram Mini App for FatCalories bot. Visual food diary, statistics charts, and settings — all within Telegram's native interface.</p>
+                    <h3 class="proj-title">FatBot Mini App</h3>
+                    <p class="proj-desc">Full-featured Telegram Mini App for FatCalories bot. Visual food diary, statistics charts, and settings — all within Telegram's native interface.</p>
+                    <div class="proj-footer">
                         <div class="proj-tech">
                             <span>React</span><span>TypeScript</span><span>TG Web App API</span><span>CSS Modules</span>
                         </div>
-                        <div class="proj-meta">
-                            <span class="proj-status">● INTEGRATED WITH BOT</span>
-                            <span class="proj-users">MOBILE-FIRST</span>
-                        </div>
+                        <a href="#contact" class="proj-link">Explore →</a>
                     </div>
-                </article>
+                    <div class="proj-card">
+                        <img src="assets/fatbot.png" alt="FatBot Mini App" class="ss-mobile">
+                        <span class="proj-badge">● Integrated with Bot</span>
+                    </div>
+                </div>
 
-                <article class="proj-card reveal">
-                    <div class="proj-num">03</div>
-                    <div class="proj-preview pp-3" aria-hidden="true">
-                        <img src="assets/markuspro.png" alt="Markus Pro Shop" class="proj-screenshot">
-                        <span class="proj-type-badge">WEBSITE</span>
+                <!-- 03 -->
+                <div class="proj-item reveal">
+                    <div class="proj-meta-row">
+                        <span class="proj-tag">Website</span>
+                        <span class="proj-year">2024</span>
                     </div>
-                    <div class="proj-info">
-                        <h3 class="proj-title">Markus Pro Shop</h3>
-                        <p class="proj-desc">Modern e-commerce website with product catalog, cart system, and admin panel. Supabase backend, fully responsive design.</p>
+                    <h3 class="proj-title">Markus Pro Shop</h3>
+                    <p class="proj-desc">Modern e-commerce website with product catalog, cart system, and admin panel. Supabase backend, fully responsive design.</p>
+                    <div class="proj-footer">
                         <div class="proj-tech">
                             <span>HTML/CSS/JS</span><span>Supabase</span><span>Netlify</span><span>PostgreSQL</span>
                         </div>
-                        <div class="proj-meta">
-                            <span class="proj-status">● DEPLOYED &amp; LIVE</span>
-                            <span class="proj-users">ADMIN PANEL</span>
-                        </div>
+                        <a href="#contact" class="proj-link">Explore →</a>
                     </div>
-                </article>
+                    <div class="proj-card">
+                        <img src="assets/markuspro.png" alt="Markus Pro Shop">
+                        <span class="proj-badge">● Deployed &amp; Live</span>
+                    </div>
+                </div>
 
-                <article class="proj-card reveal">
-                    <div class="proj-num">04</div>
-                    <div class="proj-preview pp-4" aria-hidden="true">
-                        <div class="pp-mock">
-                            <div class="pp-bar">
-                                <span></span><span></span><span></span>
-                                <span class="pp-url">order-system</span>
-                            </div>
-                            <div class="pp-content">
-                                <div class="pp-icon">📊</div>
-                                <div class="pp-lines">
-                                    <div class="pp-line ll"></div>
-                                    <div class="pp-line lm"></div>
-                                    <div class="pp-line ls"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <span class="proj-type-badge">WEB APP</span>
+                <!-- 04 -->
+                <div class="proj-item reveal">
+                    <div class="proj-meta-row">
+                        <span class="proj-tag">Web App</span>
+                        <span class="proj-year">2024</span>
                     </div>
-                    <div class="proj-info">
-                        <h3 class="proj-title">Order Management System</h3>
-                        <p class="proj-desc">Internal web app for tracking and managing orders. Real-time status updates, filtering, and reporting dashboard with clean data visualization.</p>
+                    <h3 class="proj-title">Order Management System</h3>
+                    <p class="proj-desc">Internal web app for tracking and managing orders. Real-time status updates, filtering, and reporting dashboard with clean data visualization.</p>
+                    <div class="proj-footer">
                         <div class="proj-tech">
                             <span>JavaScript</span><span>HTML/CSS</span><span>Supabase</span><span>REST API</span>
                         </div>
-                        <div class="proj-meta">
-                            <span class="proj-status">● PRODUCTION READY</span>
-                            <span class="proj-users">REAL-TIME</span>
-                        </div>
+                        <a href="#contact" class="proj-link">Explore →</a>
                     </div>
-                </article>
+                    <div class="proj-card">
+                        <div class="proj-card-mock">
+                            <span class="mock-icon">📊</span>
+                            <div class="mock-lines">
+                                <div class="mock-line" style="width:210px"></div>
+                                <div class="mock-line" style="width:155px"></div>
+                                <div class="mock-line" style="width:185px"></div>
+                            </div>
+                        </div>
+                        <span class="proj-badge">● Production Ready</span>
+                    </div>
+                </div>
 
             </div>
         </div>
     </section>
-
-    <!-- ── DIVIDER ── -->
-    <div class="divider" aria-hidden="true"><span>03 ──── SERVICES</span></div>
 
     <!-- SERVICES -->
     <section class="section" id="services">
         <div class="container">
-            <div class="section-head reveal">
-                <span class="sec-num">03</span>
-                <h2 class="sec-title">WHAT I<br>BUILD</h2>
-                <p class="sec-desc">End-to-end solutions from concept to deployment.</p>
+            <div class="services-head reveal">
+                <p class="sec-label">What I build</p>
+                <h2 class="sec-title">Services &amp;<br><em>expertise.</em></h2>
             </div>
+            <div class="services-list">
 
-            <div class="services-grid">
-
-                <div class="srv-card reveal">
-                    <div class="srv-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                    </div>
+                <div class="srv-item reveal">
                     <span class="srv-num">01</span>
-                    <h3 class="srv-title">Website<br>Development</h3>
-                    <p class="srv-desc">Fast, responsive sites and apps. Landing pages to full-featured SPAs with modern design and top performance.</p>
-                    <ul class="srv-list">
-                        <li>Landing pages &amp; portfolios</li>
-                        <li>E-commerce websites</li>
-                        <li>Single-page applications</li>
-                        <li>Admin dashboards</li>
-                    </ul>
-                    <a href="#contact" class="srv-cta">ORDER NOW ↗</a>
+                    <div>
+                        <h3 class="srv-title">Website Development</h3>
+                        <p class="srv-desc">Fast, responsive sites and apps. Landing pages to full-featured SPAs with modern design and top performance scores.</p>
+                    </div>
+                    <span class="srv-arrow">↗</span>
                 </div>
 
-                <div class="srv-card reveal">
-                    <div class="srv-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></svg>
-                    </div>
+                <div class="srv-item reveal" style="--delay:60ms">
                     <span class="srv-num">02</span>
-                    <h3 class="srv-title">Telegram<br>Bots</h3>
-                    <p class="srv-desc">Custom bots for automation, customer service, and payments. Built with aiogram 3 for reliability.</p>
-                    <ul class="srv-list">
-                        <li>Business automation</li>
-                        <li>E-commerce &amp; payments</li>
-                        <li>Notification systems</li>
-                        <li>User management &amp; CRM</li>
-                    </ul>
-                    <a href="#contact" class="srv-cta">ORDER NOW ↗</a>
+                    <div>
+                        <h3 class="srv-title">Telegram Bots</h3>
+                        <p class="srv-desc">Custom bots for automation, customer service, and payments. Built with aiogram 3 for reliability and scale.</p>
+                    </div>
+                    <span class="srv-arrow">↗</span>
                 </div>
 
-                <div class="srv-card reveal">
-                    <div class="srv-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-                    </div>
+                <div class="srv-item reveal" style="--delay:120ms">
                     <span class="srv-num">03</span>
-                    <h3 class="srv-title">Telegram<br>Mini Apps</h3>
-                    <p class="srv-desc">Full web apps inside Telegram. Bot integration, seamless UX — without leaving the messenger.</p>
-                    <ul class="srv-list">
-                        <li>Product catalogs &amp; shops</li>
-                        <li>User dashboards</li>
-                        <li>Interactive tools</li>
-                        <li>Bot + Mini App combos</li>
-                    </ul>
-                    <a href="#contact" class="srv-cta">ORDER NOW ↗</a>
+                    <div>
+                        <h3 class="srv-title">Telegram Mini Apps</h3>
+                        <p class="srv-desc">Full web apps inside Telegram. Bot integration, seamless UX — without leaving the messenger.</p>
+                    </div>
+                    <span class="srv-arrow">↗</span>
                 </div>
 
-                <div class="srv-card reveal">
-                    <div class="srv-icon">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
-                    </div>
+                <div class="srv-item reveal" style="--delay:180ms">
                     <span class="srv-num">04</span>
-                    <h3 class="srv-title">Database<br>Integration</h3>
-                    <p class="srv-desc">Solid backend with PostgreSQL or Supabase. Data modeling, REST API, and reliable storage for any app.</p>
-                    <ul class="srv-list">
-                        <li>Database design &amp; setup</li>
-                        <li>Supabase integration</li>
-                        <li>REST API development</li>
-                        <li>Data migration</li>
-                    </ul>
-                    <a href="#contact" class="srv-cta">ORDER NOW ↗</a>
+                    <div>
+                        <h3 class="srv-title">Database Integration</h3>
+                        <p class="srv-desc">Solid backend with PostgreSQL or Supabase. Data modeling, REST API, and reliable storage for any app.</p>
+                    </div>
+                    <span class="srv-arrow">↗</span>
                 </div>
 
             </div>
         </div>
     </section>
 
-    <!-- ── DIVIDER ── -->
-    <div class="divider" aria-hidden="true"><span>04 ──── CONTACT</span></div>
-
     <!-- CONTACT -->
-    <section class="section section-dark" id="contact">
+    <section class="section section-alt" id="contact">
         <div class="container">
             <div class="contact-grid">
 
                 <div class="contact-left reveal">
-                    <span class="sec-num">04</span>
-                    <h2 class="sec-title">LET'S<br>BUILD<br>SOMETHING.</h2>
-                    <p class="contact-desc">Have a project in mind? Describe what you need — I'll get back within 24 hours.</p>
-                    <div class="contact-facts">
-                        <div class="cf-item">
-                            <span class="cf-icon">⚡</span>
-                            <div>
+                    <p class="sec-label">Contact</p>
+                    <h2 class="sec-title">Let's build<br><em>something.</em></h2>
+                    <p class="contact-tagline">Have a project in mind? Describe what you need — I'll get back within 24 hours.</p>
+                    <div class="contact-cards">
+                        <div class="cc-item">
+                            <span class="cc-icon">⚡</span>
+                            <div class="cc-text">
                                 <strong>Fast Delivery</strong>
                                 <span>Quick turnaround on every project</span>
                             </div>
                         </div>
-                        <div class="cf-item">
-                            <span class="cf-icon">◈</span>
-                            <div>
+                        <div class="cc-item">
+                            <span class="cc-icon">◈</span>
+                            <div class="cc-text">
                                 <strong>Clean Code</strong>
                                 <span>Readable, maintainable, documented</span>
                             </div>
                         </div>
-                        <div class="cf-item">
-                            <span class="cf-icon">◎</span>
-                            <div>
+                        <div class="cc-item">
+                            <span class="cc-icon">◎</span>
+                            <div class="cc-text">
                                 <strong>Results-Focused</strong>
                                 <span>Delivered to spec, every time</span>
                             </div>
@@ -434,20 +334,20 @@
                     </div>
                 </div>
 
-                <div class="contact-right reveal">
+                <div class="contact-right reveal" style="--delay:100ms">
                     <form class="contact-form" id="contactForm" novalidate>
                         <div class="form-row">
                             <div class="fg">
-                                <label for="name">YOUR NAME</label>
+                                <label for="name">Your Name</label>
                                 <input type="text" id="name" name="name" placeholder="John Smith" required autocomplete="name">
                             </div>
                             <div class="fg">
-                                <label for="email">EMAIL</label>
+                                <label for="email">Email</label>
                                 <input type="email" id="email" name="email" placeholder="john@example.com" required autocomplete="email">
                             </div>
                         </div>
                         <div class="fg">
-                            <label for="service">SERVICE</label>
+                            <label for="service">Service</label>
                             <select id="service" name="service">
                                 <option value="">Select a service...</option>
                                 <option>Website Development</option>
@@ -458,11 +358,11 @@
                             </select>
                         </div>
                         <div class="fg">
-                            <label for="message">PROJECT DETAILS</label>
+                            <label for="message">Project Details</label>
                             <textarea id="message" name="message" rows="5" placeholder="Describe your project, goals, and timeline..." required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-full" id="submitBtn">
-                            SEND MESSAGE ↗
+                        <button type="submit" class="btn-submit" id="submitBtn">
+                            Send message →
                         </button>
                     </form>
                 </div>
@@ -475,16 +375,16 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-inner">
-                <span class="footer-logo">MARKUS<span class="logo-dot">▪</span></span>
-                <span class="footer-role">WEB &amp; TELEGRAM DEVELOPER</span>
-                <span class="footer-copy">© 2025 MARKUS</span>
+                <span class="footer-logo">Markus.</span>
+                <span class="footer-role">Web &amp; Telegram Developer</span>
+                <span class="footer-copy">© 2025</span>
             </div>
         </div>
     </footer>
 
     <!-- TOAST -->
     <div class="toast" id="toast" role="alert" aria-live="polite">
-        <span class="toast-check">✓</span>
+        <span>✓</span>
         <span>Message sent! I'll get back to you soon.</span>
     </div>
 

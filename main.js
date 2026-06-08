@@ -1,7 +1,3 @@
-/* ============================================================
-   MARKUS PORTFOLIO — NEOBRUTALISM — main.js
-   ============================================================ */
-
 /* === NAV === */
 
 const nav    = document.getElementById('nav');
@@ -39,14 +35,10 @@ document.addEventListener('click', e => {
 const revealObs = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (!entry.isIntersecting) return;
-        const el = entry.target;
-        el.classList.add('visible');
-        if (el.classList.contains('skill-card')) {
-            setTimeout(() => el.classList.add('bar-animate'), 300);
-        }
-        revealObs.unobserve(el);
+        entry.target.classList.add('visible');
+        revealObs.unobserve(entry.target);
     });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+}, { threshold: 0.08, rootMargin: '0px 0px -50px 0px' });
 
 document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 
@@ -59,11 +51,9 @@ const submitBtn = document.getElementById('submitBtn');
 form.addEventListener('submit', e => {
     e.preventDefault();
     if (!validate()) return;
-
     const orig = submitBtn.textContent;
     submitBtn.disabled = true;
-    submitBtn.textContent = 'SENDING...';
-
+    submitBtn.textContent = 'Sending...';
     setTimeout(() => {
         form.reset();
         submitBtn.disabled = false;
@@ -76,29 +66,24 @@ form.addEventListener('submit', e => {
 function validate() {
     clearErrors();
     let ok = true;
-
     const name    = form.querySelector('#name');
     const email   = form.querySelector('#email');
     const message = form.querySelector('#message');
-
     if (!name.value.trim())
         { markError(name, 'Name required'); ok = false; }
-
     if (!email.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value))
         { markError(email, 'Valid email required'); ok = false; }
-
     if (message.value.trim().length < 10)
         { markError(message, 'Min 10 characters'); ok = false; }
-
     return ok;
 }
 
 function markError(el, msg) {
-    el.style.borderColor = '#FF3B3B';
+    el.style.borderColor = '#ef4444';
     const e = document.createElement('span');
     e.className = 'field-err';
     e.textContent = msg;
-    e.style.cssText = 'display:block;color:#FF3B3B;font-size:0.65rem;letter-spacing:0.08em;margin-top:5px;font-weight:700;';
+    e.style.cssText = 'display:block;color:#ef4444;font-size:0.75rem;margin-top:5px;font-weight:500;';
     el.parentNode.appendChild(e);
 }
 
