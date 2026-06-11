@@ -8,11 +8,13 @@ const overlayFrame = document.getElementById('overlayFrame');
 const overlayLoader= document.getElementById('overlayLoader');
 
 const projectMeta = {
-    fatcal:    { title: 'FatCalories Bot',          src: 'projects/fatcal/',    ext: null },
-    fatbot:    { title: 'FatBot Mini App',          src: 'projects/fatbot/',    ext: 'https://fatbot-0xxn.onrender.com' },
-    markuspro: { title: 'Markus Pro Shop',          src: 'projects/markuspro/', ext: null },
-    ordersys:  { title: 'Order Management System',  src: 'projects/ordersys/',  ext: null },
+    fatcal:    { title: 'FatCalories Bot',          src: 'projects/fatcal/',    ext: null,                                   phone: true },
+    fatbot:    { title: 'FatBot Mini App',          src: 'projects/fatbot/',    ext: 'https://fatbot-0xxn.onrender.com',     phone: true },
+    markuspro: { title: 'Markus Pro Shop',          src: 'projects/markuspro/', ext: null,                                   phone: false },
+    ordersys:  { title: 'Order Management System',  src: 'projects/ordersys/',  ext: null,                                   phone: false },
 };
+
+const overlayBody = overlay.querySelector('.overlay-body');
 
 document.querySelectorAll('.proj-item[data-project]').forEach(item => {
     item.querySelector('.proj-card').addEventListener('click', () => {
@@ -40,6 +42,8 @@ function openProject(id) {
         overlayExt.classList.add('hide');
     }
 
+    overlayBody.classList.toggle('phone-mode', !!data.phone);
+
     overlay.classList.add('opening');
     requestAnimationFrame(() => {
         overlay.classList.add('active');
@@ -56,6 +60,7 @@ function closeProject() {
     document.body.style.overflow = '';
     setTimeout(() => {
         overlay.classList.remove('opening');
+        overlayBody.classList.remove('phone-mode');
         overlayFrame.src = '';
         overlayFrame.classList.remove('loaded');
         overlayLoader.classList.remove('fade-out');
