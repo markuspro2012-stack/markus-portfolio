@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wishlist &mdash; Markus Pro</title>
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/typography.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/cart-drawer.css">
+  <link rel="stylesheet" href="css/pages/wishlist.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner container">
+    <a href="index.html" class="nav-logo">MARKUS<span>PRO</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="catalog.html">Catalog</a></li>
+      <li><a href="catalog.html?category=new">New In</a></li>
+      <li><a href="catalog.html?category=sale">Sale</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="nav-icon-btn" id="nav-search-btn" aria-label="Search">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="7"/><path d="M16 16l-3-3"/></svg>
+      </button>
+      <a href="wishlist.html" class="nav-icon-btn" style="color: var(--accent);" aria-label="Wishlist">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8C3.5 4.96 5.96 2.5 9 2.5c1.66 0 3.14.75 4.13 1.93A5.5 5.5 0 0 1 17.5 8c0 5-8.5 10-8.5 10S.5 13 .5 8z" transform="translate(1 1)"/></svg>
+        <span class="badge-count" id="wish-count" style="opacity:0">0</span>
+      </a>
+      <button class="nav-icon-btn" id="cart-toggle" aria-label="Cart">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="badge-count" id="cart-count" style="opacity:0">0</span>
+      </button>
+      <a href="account.html" class="nav-icon-btn" aria-label="Account">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <ul class="mobile-nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="catalog.html">Catalog</a></li>
+    <li><a href="catalog.html?category=new">New In</a></li>
+    <li><a href="catalog.html?category=sale">Sale</a></li>
+    <li><a href="wishlist.html">Wishlist</a></li>
+    <li><a href="account.html">Account</a></li>
+  </ul>
+</div>
+<div class="overlay" id="menu-overlay"></div>
+
+<!-- Wishlist Page -->
+<main class="wishlist-page container">
+  <div class="wishlist-header">
+    <h1 class="wishlist-title">Wishlist</h1>
+    <span class="wishlist-count" id="wishlist-count">0 items</span>
+  </div>
+
+  <div class="wishlist-auth-bar" id="wishlist-auth-bar" style="display:none">
+    <p class="wishlist-auth-text">Sign in to save your wishlist across devices</p>
+    <a href="login.html" class="btn btn-outline btn-sm">Sign In</a>
+  </div>
+
+  <div class="wishlist-grid" id="wishlist-grid"></div>
+
+  <div class="empty-state" id="wishlist-empty" style="display:none">
+    <div class="empty-state-icon">
+      <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M8 21C8 12.7 14.7 6 23 6c4.15 0 7.85 1.88 10.33 4.83A13.75 13.75 0 0 1 43.75 21c0 12.5-21.25 25-21.25 25S1.25 33.5 1.25 21z" transform="scale(1.1) translate(-1,-1)"/>
+      </svg>
+    </div>
+    <h2 class="empty-state-title">Your wishlist is empty</h2>
+    <p class="empty-state-text">Browse the catalog and heart your favourite pieces to save them here.</p>
+    <a href="catalog.html" class="btn btn-primary btn-lg" style="margin-top: var(--sp-6);">Explore Collection</a>
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="index.html" class="footer-logo">MARKUS<span>PRO</span></a>
+        <p class="footer-desc">Premium streetwear for those who define their own lane.</p>
+        <div class="footer-social">
+          <a href="#" class="footer-social-link" aria-label="Instagram">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="1" width="12" height="12" rx="3"/><circle cx="7" cy="7" r="3"/></svg>
+          </a>
+          <a href="#" class="footer-social-link" aria-label="Telegram">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 1L6.5 7.5M13 1l-4 12-2.5-5.5L1 5l12-4z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h4 class="footer-heading">Shop</h4>
+        <ul class="footer-links">
+          <li><a href="catalog.html">All Products</a></li>
+          <li><a href="catalog.html?category=tshirts">T-Shirts</a></li>
+          <li><a href="catalog.html?category=pants">Pants</a></li>
+          <li><a href="catalog.html?category=sneakers">Sneakers</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-heading">Info</h4>
+        <ul class="footer-links">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Size Guide</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-heading">Support</h4>
+        <ul class="footer-links">
+          <li><a href="#">Shipping &amp; Returns</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2026 Markus Pro. All rights reserved.</p>
+      <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
+    </div>
+  </div>
+</footer>
+
+<!-- Cart Drawer -->
+<aside class="cart-drawer" id="cart-drawer" aria-label="Cart">
+  <div class="cart-drawer-header">
+    <span class="cart-drawer-title">YOUR BAG <span class="cart-drawer-count" id="cart-drawer-count"></span></span>
+    <button class="cart-drawer-close" id="cart-close" aria-label="Close">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="cart-drawer-items" id="cart-items"></div>
+  <div class="cart-drawer-footer">
+    <div class="cart-subtotal">
+      <span>Subtotal</span>
+      <span class="cart-subtotal-price" id="cart-subtotal">&euro; 0</span>
+    </div>
+    <p class="cart-shipping-note">Free shipping on orders over &euro; 100</p>
+    <a href="#" class="btn btn-primary btn-full btn-lg" id="checkout-btn">Checkout</a>
+    <button class="btn btn-ghost btn-full" onclick="document.getElementById('cart-drawer').classList.remove('is-open');document.getElementById('cart-overlay').classList.remove('is-visible');">Continue Shopping</button>
+  </div>
+</aside>
+<div class="overlay" id="cart-overlay"></div>
+
+<div class="toast" id="toast" role="alert" aria-live="polite">
+  <span class="toast-icon" id="toast-icon"></span>
+  <span class="toast-msg" id="toast-msg"></span>
+  <button class="toast-close" id="toast-close" aria-label="Close">&times;</button>
+</div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/supabase-client.js"></script>
+
+
+<script src="js/utils.js"></script>
+<script src="js/products.js"></script>
+<script src="js/app.js"></script>
+<script src="js/wishlist.js"></script>
+</body>
+</html>
+

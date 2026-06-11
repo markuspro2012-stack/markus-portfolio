@@ -154,7 +154,7 @@
             <div class="portfolio-list">
 
                 <!-- 01 -->
-                <div class="proj-item reveal">
+                <div class="proj-item reveal" data-project="fatcal">
                     <div class="proj-meta-row">
                         <span class="proj-tag">Telegram Bot</span>
                         <span class="proj-year">2024</span>
@@ -181,7 +181,7 @@
                 </div>
 
                 <!-- 02 -->
-                <div class="proj-item reveal">
+                <div class="proj-item reveal" data-project="fatbot">
                     <div class="proj-meta-row">
                         <span class="proj-tag">Telegram Mini App</span>
                         <span class="proj-year">2024</span>
@@ -201,7 +201,7 @@
                 </div>
 
                 <!-- 03 -->
-                <div class="proj-item reveal">
+                <div class="proj-item reveal" data-project="markuspro">
                     <div class="proj-meta-row">
                         <span class="proj-tag">Website</span>
                         <span class="proj-year">2024</span>
@@ -221,7 +221,7 @@
                 </div>
 
                 <!-- 04 -->
-                <div class="proj-item reveal">
+                <div class="proj-item reveal" data-project="ordersys">
                     <div class="proj-meta-row">
                         <span class="proj-tag">Web App</span>
                         <span class="proj-year">2024</span>
@@ -386,6 +386,28 @@
     <div class="toast" id="toast" role="alert" aria-live="polite">
         <span>✓</span>
         <span>Message sent! I'll get back to you soon.</span>
+    </div>
+
+    <!-- PROJECT OVERLAY -->
+    <div class="proj-overlay" id="projOverlay" aria-hidden="true">
+        <header class="overlay-header">
+            <button class="overlay-back" id="overlayBack" aria-label="Back to portfolio">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+                Back
+            </button>
+            <span class="overlay-title" id="overlayTitle"></span>
+            <a class="overlay-ext hide" id="overlayExt" href="#" target="_blank" rel="noopener noreferrer">
+                Open Full Site ↗
+            </a>
+        </header>
+        <div class="overlay-body">
+            <div class="overlay-loader" id="overlayLoader">
+                <div class="loader-ring"></div>
+                <span>Loading project…</span>
+            </div>
+            <iframe id="overlayFrame" src="" title="Project preview"
+                sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-modals"></iframe>
+        </div>
     </div>
 
     <script src="main.js"></script>

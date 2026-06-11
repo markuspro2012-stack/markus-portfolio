@@ -1,3 +1,78 @@
+/* === PROJECT OVERLAY === */
+
+const overlay      = document.getElementById('projOverlay');
+const overlayBack  = document.getElementById('overlayBack');
+const overlayTitle = document.getElementById('overlayTitle');
+const overlayExt   = document.getElementById('overlayExt');
+const overlayFrame = document.getElementById('overlayFrame');
+const overlayLoader= document.getElementById('overlayLoader');
+
+const projectMeta = {
+    fatcal:    { title: 'FatCalories Bot',          src: 'projects/fatcal/',    ext: null },
+    fatbot:    { title: 'FatBot Mini App',          src: 'projects/fatbot/',    ext: 'https://fatbot-0xxn.onrender.com' },
+    markuspro: { title: 'Markus Pro Shop',          src: 'projects/markuspro/', ext: null },
+    ordersys:  { title: 'Order Management System',  src: 'projects/ordersys/',  ext: null },
+};
+
+document.querySelectorAll('.proj-item[data-project]').forEach(item => {
+    item.querySelector('.proj-card').addEventListener('click', () => {
+        openProject(item.dataset.project);
+    });
+    item.querySelector('.proj-title').style.cursor = 'pointer';
+    item.querySelector('.proj-title').addEventListener('click', () => {
+        openProject(item.dataset.project);
+    });
+});
+
+function openProject(id) {
+    const data = projectMeta[id];
+    if (!data) return;
+
+    overlayTitle.textContent = data.title;
+    overlayLoader.classList.remove('fade-out');
+    overlayFrame.classList.remove('loaded');
+    overlayFrame.src = '';
+
+    if (data.ext) {
+        overlayExt.href = data.ext;
+        overlayExt.classList.remove('hide');
+    } else {
+        overlayExt.classList.add('hide');
+    }
+
+    overlay.classList.add('opening');
+    requestAnimationFrame(() => {
+        overlay.classList.add('active');
+        overlay.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+    });
+
+    setTimeout(() => { overlayFrame.src = data.src; }, 200);
+}
+
+function closeProject() {
+    overlay.classList.remove('active');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    setTimeout(() => {
+        overlay.classList.remove('opening');
+        overlayFrame.src = '';
+        overlayFrame.classList.remove('loaded');
+        overlayLoader.classList.remove('fade-out');
+    }, 600);
+}
+
+overlayFrame.addEventListener('load', () => {
+    overlayLoader.classList.add('fade-out');
+    overlayFrame.classList.add('loaded');
+});
+
+overlayBack.addEventListener('click', closeProject);
+
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && overlay.classList.contains('active')) closeProject();
+});
+
 /* === NAV === */
 
 const nav    = document.getElementById('nav');

@@ -465,6 +465,112 @@ img { display: block; max-width: 100%; }
 .toast.show { opacity: 1; transform: translateY(0); pointer-events: all; }
 
 /* ══════════════════════════════════════
+   PROJ CARD — CLICK HINT
+══════════════════════════════════════ */
+.proj-card {
+    cursor: pointer;
+}
+.proj-card::after {
+    content: 'Explore project →';
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+    color: #fff; font-family: var(--font-s);
+    font-size: 0.95rem; font-weight: 600;
+    letter-spacing: 0.01em;
+    opacity: 0;
+    transition: opacity 0.3s var(--ease);
+    border-radius: 24px;
+    pointer-events: none;
+}
+.proj-card:hover::after { opacity: 1; }
+
+/* ══════════════════════════════════════
+   PROJECT OVERLAY
+══════════════════════════════════════ */
+.proj-overlay {
+    position: fixed; inset: 0; z-index: 400;
+    background: var(--bg);
+    transform: translateY(100%);
+    transition: transform 0.55s cubic-bezier(0.32, 0.72, 0, 1);
+    will-change: transform;
+    visibility: hidden;
+}
+.proj-overlay.opening { visibility: visible; }
+.proj-overlay.active  { transform: translateY(0); visibility: visible; }
+
+.overlay-header {
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 60px; z-index: 1;
+    display: flex; align-items: center;
+    justify-content: space-between;
+    padding: 0 32px; gap: 20px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+}
+.overlay-back {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: none; border: none; cursor: pointer;
+    font-family: var(--font-s); font-size: 0.88rem;
+    font-weight: 500; color: var(--text2);
+    padding: 8px 12px; border-radius: 10px;
+    transition: background 0.2s, color 0.2s;
+    flex-shrink: 0; white-space: nowrap;
+}
+.overlay-back:hover { background: var(--bg2); color: var(--text); }
+.overlay-back svg { flex-shrink: 0; }
+.overlay-title {
+    font-family: var(--font-d); font-size: 1.1rem;
+    font-weight: 700; letter-spacing: -0.02em;
+    flex: 1; text-align: center;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.overlay-ext {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--text); color: var(--bg) !important;
+    padding: 8px 18px; border-radius: var(--r-pill);
+    font-size: 0.82rem; font-weight: 600;
+    transition: background 0.2s, transform 0.2s;
+    flex-shrink: 0; white-space: nowrap;
+    text-decoration: none;
+}
+.overlay-ext:hover { background: #2a2a2a; transform: translateY(-1px); }
+.overlay-ext.hide { display: none; }
+
+.overlay-body {
+    position: absolute; top: 60px; left: 0; right: 0; bottom: 0;
+    background: #111;
+    display: flex; align-items: center; justify-content: center;
+}
+.overlay-loader {
+    position: absolute; inset: 0; z-index: 2;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 16px; background: var(--bg2);
+    font-family: var(--font-s); font-size: 0.88rem;
+    color: var(--text2); pointer-events: none;
+    transition: opacity 0.4s var(--ease);
+}
+.overlay-loader.fade-out { opacity: 0; }
+.loader-ring {
+    width: 36px; height: 36px;
+    border: 2.5px solid var(--border);
+    border-top-color: var(--text);
+    border-radius: 50%;
+    animation: ov-spin 0.75s linear infinite;
+}
+@keyframes ov-spin { to { transform: rotate(360deg); } }
+
+#overlayFrame {
+    width: 100%; height: 100%;
+    border: none; display: block;
+    opacity: 0; position: relative; z-index: 1;
+    transition: opacity 0.45s var(--ease);
+}
+#overlayFrame.loaded { opacity: 1; }
+
+/* ══════════════════════════════════════
    RESPONSIVE
 ══════════════════════════════════════ */
 @media (max-width: 1024px) {

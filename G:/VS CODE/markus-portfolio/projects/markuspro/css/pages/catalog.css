@@ -1,0 +1,147 @@
+/* ============================================================
+   MARKUS PRO — Catalog page
+   ============================================================ */
+
+.catalog-hero {
+  padding-top: calc(var(--nav-height) + var(--sp-12));
+  padding-bottom: var(--sp-8);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.catalog-hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+/* ── Toolbar ─────────────────────────────────────────────── */
+
+.catalog-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding-block: var(--sp-5);
+  border-bottom: 1px solid var(--border-subtle);
+  flex-wrap: wrap;
+}
+
+.catalog-filters-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+
+.catalog-count {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+.catalog-sort-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.sort-label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.sort-select {
+  padding: 8px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  cursor: pointer;
+  outline: none;
+  transition: border-color var(--transition-fast);
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23666' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 30px;
+}
+.sort-select:focus { border-color: var(--accent); }
+.sort-select option { background: var(--bg-secondary); }
+
+/* ── Main layout ─────────────────────────────────────────── */
+
+.catalog-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: var(--sp-10);
+  padding-block: var(--sp-10);
+}
+
+/* ── Sidebar ─────────────────────────────────────────────── */
+
+.catalog-sidebar {
+  position: sticky;
+  top: calc(var(--nav-height) + var(--sp-6));
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-8);
+}
+
+.sidebar-section-title {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin-bottom: var(--sp-4);
+  padding-bottom: var(--sp-3);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.sidebar-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.sidebar-clear {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  margin-top: var(--sp-4);
+  transition: color var(--transition-fast);
+  text-align: left;
+}
+.sidebar-clear:hover { color: var(--accent); }
+
+/* ── Product grid ────────────────────────────────────────── */
+
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-6);
+  align-content: start;
+}
+
+/* Empty state within grid */
+.catalog-empty {
+  grid-column: 1 / -1;
+}

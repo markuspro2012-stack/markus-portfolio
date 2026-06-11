@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 &mdash; Markus Pro</title>
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/typography.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <style>
+    .error-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: var(--nav-height);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .error-page::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(0,191,255,0.05) 0%, transparent 100%);
+      pointer-events: none;
+    }
+    .error-number {
+      font-family: var(--font-display);
+      font-size: clamp(8rem, 25vw, 18rem);
+      font-weight: 700;
+      line-height: 0.85;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      color: transparent;
+      -webkit-text-stroke: 1.5px var(--border-default);
+      user-select: none;
+      display: block;
+      margin-bottom: var(--sp-6);
+    }
+    .error-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      margin-bottom: var(--sp-3);
+    }
+    .error-title .accent { color: var(--accent); }
+    .error-sub {
+      font-size: var(--text-base);
+      color: var(--text-secondary);
+      max-width: 360px;
+      margin: 0 auto var(--sp-8);
+      line-height: 1.6;
+    }
+    .error-actions {
+      display: flex;
+      gap: var(--sp-3);
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav is-scrolled" id="nav">
+  <div class="nav-inner container">
+    <a href="index.html" class="nav-logo">MARKUS<span>PRO</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="catalog.html">Catalog</a></li>
+      <li><a href="catalog.html?category=new">New In</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="wishlist.html" class="nav-icon-btn" aria-label="Wishlist">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8C3.5 4.96 5.96 2.5 9 2.5c1.66 0 3.14.75 4.13 1.93A5.5 5.5 0 0 1 17.5 8c0 5-8.5 10-8.5 10S.5 13 .5 8z" transform="translate(1 1)"/></svg>
+      </a>
+      <a href="catalog.html" class="nav-icon-btn" aria-label="Shop">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <ul class="mobile-nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="catalog.html">Catalog</a></li>
+    <li><a href="catalog.html?category=new">New In</a></li>
+    <li><a href="wishlist.html">Wishlist</a></li>
+    <li><a href="login.html">Account</a></li>
+  </ul>
+</div>
+<div class="overlay" id="menu-overlay"></div>
+
+<main class="error-page page-enter">
+  <div>
+    <span class="error-number">404</span>
+    <h1 class="error-title">Page <span class="accent">Not</span> Found</h1>
+    <p class="error-sub">Looks like this drop sold out before you got here. Let's get you back on track.</p>
+    <div class="error-actions">
+      <a href="index.html" class="btn btn-primary btn-lg">Back to Home</a>
+      <a href="catalog.html" class="btn btn-outline btn-lg">Browse Catalog</a>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom" style="border-top:none; padding-top: var(--sp-4);">
+      <p class="footer-copy">&copy; 2026 Markus Pro. All rights reserved.</p>
+      <div class="footer-legal">
+        <a href="index.html">Home</a>
+        <a href="catalog.html">Shop</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/utils.js"></script>
+</body>
+</html>

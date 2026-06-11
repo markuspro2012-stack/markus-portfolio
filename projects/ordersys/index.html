@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Management System</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+:root{
+  --bg:#F5F6FA;--bgw:#FFFFFF;
+  --text:#1A1D2E;--sub:#6B7280;--sub2:#9CA3AF;
+  --border:#E5E7EB;--border2:#F3F4F6;
+  --acc:#4F46E5;--acc2:#818CF8;
+  --green:#10B981;--yellow:#F59E0B;--red:#EF4444;--blue:#3B82F6;
+  --font:'Inter',-apple-system,'Segoe UI',sans-serif;
+  --r:10px;
+}
+html,body{height:100%;background:var(--bg);font-family:var(--font);color:var(--text);}
+
+/* LAYOUT */
+.app{display:flex;height:100vh;overflow:hidden;}
+.sidebar{width:220px;background:var(--bgw);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;}
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+.topbar{background:var(--bgw);border-bottom:1px solid var(--border);padding:14px 22px;display:flex;align-items:center;gap:14px;flex-shrink:0;}
+.content{flex:1;overflow-y:auto;padding:22px;}
+.content::-webkit-scrollbar{width:4px;}
+.content::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+
+/* SIDEBAR */
+.brand{padding:20px 20px 10px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border2);}
+.brand-icon{width:34px;height:34px;border-radius:9px;background:var(--acc);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;flex-shrink:0;}
+.brand-name{font-size:15px;font-weight:700;letter-spacing:-0.02em;}
+.brand-sub{font-size:11px;color:var(--sub);font-weight:500;}
+.nav-section{padding:14px 12px 8px;font-size:10px;font-weight:700;color:var(--sub2);letter-spacing:0.08em;text-transform:uppercase;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 16px;margin:1px 8px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:500;transition:background 0.15s,color 0.15s;}
+.nav-item:hover{background:var(--border2);}
+.nav-item.active{background:rgba(79,70,229,0.09);color:var(--acc);}
+.nav-item .badge{margin-left:auto;background:var(--acc);color:#fff;font-size:10px;font-weight:700;padding:1px 7px;border-radius:10px;}
+.nav-icon{width:18px;text-align:center;}
+.sidebar-bottom{margin-top:auto;padding:14px 8px;border-top:1px solid var(--border2);}
+.user-row{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;cursor:pointer;transition:background 0.15s;}
+.user-row:hover{background:var(--border2);}
+.user-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--acc),var(--acc2));display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700;flex-shrink:0;}
+.user-name{font-size:13px;font-weight:600;}
+.user-role{font-size:11px;color:var(--sub);}
+
+/* TOPBAR */
+.topbar-title{font-size:15px;font-weight:700;}
+.topbar-search{flex:1;max-width:320px;background:var(--border2);border:1px solid var(--border);border-radius:8px;display:flex;align-items:center;gap:8px;padding:7px 12px;}
+.topbar-search input{flex:1;background:none;border:none;outline:none;font-size:13px;font-family:var(--font);color:var(--text);}
+.topbar-search input::placeholder{color:var(--sub2);}
+.topbar-right{display:flex;align-items:center;gap:10px;margin-left:auto;}
+.icon-btn{width:34px;height:34px;border-radius:8px;border:1px solid var(--border);background:var(--bgw);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--sub);transition:background 0.15s;}
+.icon-btn:hover{background:var(--border2);}
+.notif-dot{position:relative;}
+.notif-dot::after{content:'';position:absolute;top:6px;right:6px;width:7px;height:7px;background:#EF4444;border-radius:50%;border:2px solid var(--bgw);}
+
+/* STAT CARDS */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px;}
+.stat{background:var(--bgw);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;}
+.stat-label{font-size:12px;font-weight:600;color:var(--sub);letter-spacing:0.03em;text-transform:uppercase;margin-bottom:10px;}
+.stat-val{font-size:26px;font-weight:800;letter-spacing:-0.03em;margin-bottom:4px;}
+.stat-delta{font-size:12px;font-weight:600;}
+.delta-up{color:var(--green);}
+.delta-down{color:var(--red);}
+.stat-icon{float:right;margin-top:-2px;font-size:22px;}
+
+/* TABLE */
+.table-card{background:var(--bgw);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;}
+.table-head{padding:16px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);}
+.table-title{font-size:14px;font-weight:700;}
+.table-filters{display:flex;gap:6px;}
+.filter-btn{padding:5px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--bgw);color:var(--sub);font-family:var(--font);transition:all 0.15s;}
+.filter-btn:hover{border-color:var(--acc);color:var(--acc);}
+.filter-btn.active{background:var(--acc);color:#fff;border-color:var(--acc);}
+.table-actions{display:flex;gap:8px;}
+.new-btn{background:var(--acc);color:#fff;border:none;border-radius:8px;padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font);transition:opacity 0.15s;}
+.new-btn:hover{opacity:0.88;}
+table{width:100%;border-collapse:collapse;}
+thead th{padding:10px 20px;text-align:left;font-size:11px;font-weight:700;color:var(--sub2);letter-spacing:0.06em;text-transform:uppercase;border-bottom:1px solid var(--border);background:var(--border2);}
+tbody tr{border-bottom:1px solid var(--border2);cursor:pointer;transition:background 0.12s;}
+tbody tr:hover{background:#F9FAFB;}
+tbody tr:last-child{border-bottom:none;}
+td{padding:12px 20px;font-size:13px;}
+.order-id{font-weight:700;color:var(--acc);}
+.cust-row{display:flex;align-items:center;gap:8px;}
+.cust-av{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#818CF8,#4F46E5);display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:700;flex-shrink:0;}
+.cust-av.g{background:linear-gradient(135deg,#34D399,#10B981);}
+.cust-av.o{background:linear-gradient(135deg,#FCD34D,#F59E0B);}
+.cust-av.r{background:linear-gradient(135deg,#FCA5A5,#EF4444);}
+.cust-av.p{background:linear-gradient(135deg,#C4B5FD,#8B5CF6);}
+.cust-av.b{background:linear-gradient(135deg,#93C5FD,#3B82F6);}
+.cust-name{font-weight:600;}
+.cust-email{font-size:11px;color:var(--sub);}
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:700;}
+.badge.paid{background:#D1FAE5;color:#059669;}
+.badge.pending{background:#FEF3C7;color:#D97706;}
+.badge.refund{background:#FEE2E2;color:#DC2626;}
+.badge.ship{background:#DBEAFE;color:#1D4ED8;}
+.item-thumb{width:28px;height:28px;border-radius:6px;object-fit:cover;background:var(--border2);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.items-cell{display:flex;align-items:center;gap:6px;}
+.item-more{font-size:11px;color:var(--sub);}
+.amount{font-weight:700;}
+.action-cell{display:flex;gap:6px;}
+.act-btn{padding:5px 10px;border-radius:6px;border:1px solid var(--border);background:var(--bgw);font-size:11px;font-weight:600;cursor:pointer;font-family:var(--font);transition:all 0.15s;color:var(--text);}
+.act-btn:hover{border-color:var(--acc);color:var(--acc);}
+.act-btn.del:hover{border-color:var(--red);color:var(--red);}
+
+/* MODAL */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:50;display:none;align-items:center;justify-content:center;backdrop-filter:blur(2px);}
+.modal-bg.show{display:flex;animation:fadeIn 0.2s ease;}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+.modal{background:var(--bgw);border-radius:16px;width:480px;max-width:90vw;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.18);animation:slideUp 0.25s ease;}
+@keyframes slideUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+.modal-hd{padding:20px 24px 0;display:flex;justify-content:space-between;align-items:center;}
+.modal-hd h3{font-size:16px;font-weight:800;}
+.modal-close{border:none;background:none;font-size:20px;cursor:pointer;color:var(--sub);line-height:1;}
+.modal-body{padding:20px 24px 24px;}
+.order-detail-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border2);}
+.order-detail-row:last-child{border-bottom:none;}
+.odl{font-size:13px;color:var(--sub);font-weight:500;}
+.odv{font-size:13px;font-weight:700;}
+.modal-footer{display:flex;gap:8px;justify-content:flex-end;margin-top:18px;}
+.modal-btn{padding:9px 20px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font);border:none;}
+.modal-btn.primary{background:var(--acc);color:#fff;}
+.modal-btn.secondary{background:var(--border2);color:var(--text);}
+
+/* TOAST */
+.toast{position:fixed;bottom:22px;right:22px;background:var(--text);color:#fff;padding:12px 18px;border-radius:10px;font-size:13px;font-weight:600;opacity:0;transform:translateY(8px);transition:all 0.3s;pointer-events:none;z-index:100;}
+.toast.show{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="brand">
+      <div class="brand-icon">📦</div>
+      <div><div class="brand-name">OrderSys</div><div class="brand-sub">v2.4.1</div></div>
+    </div>
+    <div class="nav-section">Main</div>
+    <div class="nav-item" onclick="navClick(this)"><span class="nav-icon">📊</span> Dashboard</div>
+    <div class="nav-item active" onclick="navClick(this)"><span class="nav-icon">🛍️</span> Orders <span class="badge">12</span></div>
+    <div class="nav-item" onclick="navClick(this)"><span class="nav-icon">👥</span> Customers</div>
+    <div class="nav-item" onclick="navClick(this)"><span class="nav-icon">📦</span> Products</div>
+    <div class="nav-section">Analytics</div>
+    <div class="nav-item" onclick="navClick(this)"><span class="nav-icon">📈</span> Reports</div>
+    <div class="nav-item" onclick="navClick(this)"><span class="nav-icon">💳</span> Payments</div>
+    <div class="nav-item" onclick="navClick(this)"><span class="nav-icon">🚚</span> Shipping</div>
+    <div class="nav-section">Admin</div>
+    <div class="nav-item" onclick="navClick(this)"><span class="nav-icon">⚙️</span> Settings</div>
+    <div class="sidebar-bottom">
+      <div class="user-row">
+        <div class="user-avatar">M</div>
+        <div><div class="user-name">Markus</div><div class="user-role">Admin</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-title">Orders</div>
+      <div class="topbar-search">
+        <svg width="14" height="14" fill="none" stroke="var(--sub2)" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input placeholder="Search orders, customers…" id="searchInput">
+      </div>
+      <div class="topbar-right">
+        <button class="icon-btn notif-dot" title="Notifications">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg>
+        </button>
+        <button class="icon-btn" title="Settings">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="content">
+      <!-- STATS -->
+      <div class="stats-row">
+        <div class="stat">
+          <div class="stat-icon">🛍️</div>
+          <div class="stat-label">Total Orders</div>
+          <div class="stat-val">1,284</div>
+          <div class="stat-delta delta-up">↑ 12.4% this month</div>
+        </div>
+        <div class="stat">
+          <div class="stat-icon">💰</div>
+          <div class="stat-label">Revenue</div>
+          <div class="stat-val">$48,360</div>
+          <div class="stat-delta delta-up">↑ 8.7% this month</div>
+        </div>
+        <div class="stat">
+          <div class="stat-icon">⏳</div>
+          <div class="stat-label">Pending</div>
+          <div class="stat-val">27</div>
+          <div class="stat-delta delta-down">↑ 3 since yesterday</div>
+        </div>
+        <div class="stat">
+          <div class="stat-icon">↩️</div>
+          <div class="stat-label">Refunds</div>
+          <div class="stat-val">$1,210</div>
+          <div class="stat-delta delta-down">↑ 2.1% this month</div>
+        </div>
+      </div>
+
+      <!-- TABLE -->
+      <div class="table-card">
+        <div class="table-head">
+          <div class="table-title">Recent Orders</div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="table-filters">
+              <button class="filter-btn active" onclick="filter(this,'all')">All</button>
+              <button class="filter-btn" onclick="filter(this,'paid')">Paid</button>
+              <button class="filter-btn" onclick="filter(this,'pending')">Pending</button>
+              <button class="filter-btn" onclick="filter(this,'refund')">Refund</button>
+            </div>
+            <button class="new-btn" onclick="showNew()">+ New Order</button>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Order</th>
+              <th>Customer</th>
+              <th>Items</th>
+              <th>Status</th>
+              <th>Amount</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-bg" id="modalBg" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <div class="modal-hd">
+      <h3 id="modalTitle">Order Details</h3>
+      <button class="modal-close" onclick="document.getElementById('modalBg').classList.remove('show')">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const orders = [
+  { id:'#4821', cust:'Alex Johnson', email:'alex@email.com', col:'g',  items:['👟','👕'], extra:1, status:'paid',    amount:'$134.90', date:'Jun 11, 14:32' },
+  { id:'#4820', cust:'Maria Chen',   email:'m.chen@mail.com', col:'p', items:['👜'],       extra:0, status:'ship',    amount:'$289.00', date:'Jun 11, 13:15' },
+  { id:'#4819', cust:'James Park',   email:'jpark@work.io',   col:'b', items:['🧥','👖'], extra:2, status:'pending', amount:'$210.50', date:'Jun 11, 11:44' },
+  { id:'#4818', cust:'Sofia Ivanova',email:'sofia@gmail.com', col:'o', items:['💍'],       extra:0, status:'paid',    amount:'$520.00', date:'Jun 11, 09:20' },
+  { id:'#4817', cust:'Daniel Kim',   email:'dan.kim@io.com',  col:'r', items:['👟','🧤'], extra:1, status:'refund',  amount:'$97.40',  date:'Jun 10, 18:55' },
+  { id:'#4816', cust:'Emily Torres', email:'etorres@co.com',  col:'',  items:['👗','👠'], extra:0, status:'paid',    amount:'$183.00', date:'Jun 10, 16:30' },
+  { id:'#4815', cust:'Noah Walker',  email:'nwalker@net.com', col:'g', items:['⌚'],       extra:0, status:'ship',    amount:'$640.00', date:'Jun 10, 14:02' },
+  { id:'#4814', cust:'Ava Martinez', email:'ava.m@email.com', col:'p', items:['👜','🧣'], extra:1, status:'pending', amount:'$156.80', date:'Jun 10, 11:17' },
+  { id:'#4813', cust:'Liam Brown',   email:'liam.b@mail.co',  col:'b', items:['👔','👞'], extra:2, status:'paid',    amount:'$245.20', date:'Jun 09, 20:44' },
+  { id:'#4812', cust:'Emma Davis',   email:'emma.d@io.com',   col:'o', items:['💎'],       extra:0, status:'refund',  amount:'$310.00', date:'Jun 09, 17:30' },
+];
+
+const statusLabel = { paid:'Paid', pending:'Pending', refund:'Refund', ship:'Shipping' };
+const statusClass = { paid:'paid', pending:'pending', refund:'refund', ship:'ship' };
+let currentFilter = 'all';
+let searchVal = '';
+
+function renderTable() {
+  const tbody = document.getElementById('tbody');
+  const data = orders.filter(o => {
+    const matchFilter = currentFilter === 'all' || o.status === currentFilter;
+    const s = searchVal.toLowerCase();
+    const matchSearch = !s || o.cust.toLowerCase().includes(s) || o.id.includes(s) || o.email.toLowerCase().includes(s);
+    return matchFilter && matchSearch;
+  });
+  if (data.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:36px;color:var(--sub2)">No orders found</td></tr>';
+    return;
+  }
+  tbody.innerHTML = data.map(o => `
+    <tr onclick="showDetail('${o.id}')">
+      <td class="order-id">${o.id}</td>
+      <td>
+        <div class="cust-row">
+          <div class="cust-av ${o.col}">${o.cust[0]}</div>
+          <div><div class="cust-name">${o.cust}</div><div class="cust-email">${o.email}</div></div>
+        </div>
+      </td>
+      <td>
+        <div class="items-cell">
+          ${o.items.map(i => `<div class="item-thumb">${i}</div>`).join('')}
+          ${o.extra ? `<span class="item-more">+${o.extra}</span>` : ''}
+        </div>
+      </td>
+      <td><span class="badge ${statusClass[o.status]}">${statusLabel[o.status]}</span></td>
+      <td class="amount">${o.amount}</td>
+      <td style="color:var(--sub)">${o.date}</td>
+      <td>
+        <div class="action-cell" onclick="event.stopPropagation()">
+          <button class="act-btn" onclick="toast('✏️ Editing order ${o.id}')">Edit</button>
+          <button class="act-btn del" onclick="deleteOrder('${o.id}',event)">Del</button>
+        </div>
+      </td>
+    </tr>`).join('');
+}
+
+function filter(btn, type) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentFilter = type;
+  renderTable();
+}
+
+function showDetail(id) {
+  const o = orders.find(x => x.id === id);
+  if (!o) return;
+  document.getElementById('modalTitle').textContent = 'Order ' + o.id;
+  document.getElementById('modalBody').innerHTML = `
+    <div class="order-detail-row"><span class="odl">Customer</span><span class="odv">${o.cust}</span></div>
+    <div class="order-detail-row"><span class="odl">Email</span><span class="odv">${o.email}</span></div>
+    <div class="order-detail-row"><span class="odl">Status</span><span class="badge ${statusClass[o.status]}">${statusLabel[o.status]}</span></div>
+    <div class="order-detail-row"><span class="odl">Amount</span><span class="odv" style="font-size:16px;color:var(--acc)">${o.amount}</span></div>
+    <div class="order-detail-row"><span class="odl">Items</span><span class="odv">${o.items.join(' ')} ${o.extra ? '(+' + o.extra + ' more)' : ''}</span></div>
+    <div class="order-detail-row"><span class="odl">Date</span><span class="odv">${o.date}</span></div>
+    <div class="modal-footer">
+      <button class="modal-btn secondary" onclick="document.getElementById('modalBg').classList.remove('show')">Close</button>
+      <button class="modal-btn primary" onclick="toast('📦 Shipping label generated');document.getElementById('modalBg').classList.remove('show')">Print Label</button>
+    </div>`;
+  document.getElementById('modalBg').classList.add('show');
+}
+
+function showNew() {
+  document.getElementById('modalTitle').textContent = 'New Order';
+  document.getElementById('modalBody').innerHTML = `
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <input style="padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:var(--font);font-size:13px;outline:none;" placeholder="Customer name">
+      <input style="padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:var(--font);font-size:13px;outline:none;" placeholder="Email address">
+      <input style="padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:var(--font);font-size:13px;outline:none;" placeholder="Product / items">
+      <input style="padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:var(--font);font-size:13px;outline:none;" placeholder="Amount ($)">
+    </div>
+    <div class="modal-footer">
+      <button class="modal-btn secondary" onclick="document.getElementById('modalBg').classList.remove('show')">Cancel</button>
+      <button class="modal-btn primary" onclick="toast('✅ Order created!');document.getElementById('modalBg').classList.remove('show')">Create Order</button>
+    </div>`;
+  document.getElementById('modalBg').classList.add('show');
+}
+
+function deleteOrder(id, e) {
+  e.stopPropagation();
+  const idx = orders.findIndex(o => o.id === id);
+  if (idx > -1) { orders.splice(idx, 1); renderTable(); toast('🗑 Order ' + id + ' deleted'); }
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modalBg')) {
+    document.getElementById('modalBg').classList.remove('show');
+  }
+}
+
+function navClick(el) {
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  el.classList.add('active');
+  toast('📂 ' + el.textContent.trim().replace(/\d+/,''));
+}
+
+let toastTimer;
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+document.getElementById('searchInput').addEventListener('input', e => {
+  searchVal = e.target.value;
+  renderTable();
+});
+
+renderTable();
+</script>
+</body>
+</html>

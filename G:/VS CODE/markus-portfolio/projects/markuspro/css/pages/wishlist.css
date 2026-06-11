@@ -1,0 +1,58 @@
+/* ============================================================
+   MARKUS PRO — Wishlist page
+   ============================================================ */
+
+.wishlist-page {
+  padding-top: calc(var(--nav-height) + var(--sp-12));
+  padding-bottom: var(--sp-30);
+  min-height: 100vh;
+}
+
+.wishlist-header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-10);
+  padding-bottom: var(--sp-6);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.wishlist-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.wishlist-count {
+  font-size: var(--text-base);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+/* Auth prompt */
+.wishlist-auth-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding: var(--sp-4) var(--sp-6);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--sp-8);
+  flex-wrap: wrap;
+}
+
+.wishlist-auth-text {
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+}
+
+.wishlist-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sp-6);
+}

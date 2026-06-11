@@ -1,0 +1,131 @@
+/* ============================================================
+   MARKUS PRO — Design Tokens
+   Single source of truth for all visual decisions.
+   Never hardcode colors, fonts, or spacing outside this file.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root {
+
+  /* ── Backgrounds ─────────────────────────────────────────── */
+  --bg-primary:        #0A0A0A;
+  --bg-secondary:      #111111;
+  --bg-card:           #161616;
+  --bg-card-hover:     #1C1C1C;
+  --bg-overlay:        rgba(10, 10, 10, 0.90);
+  --bg-input:          #141414;
+
+  /* ── Text ────────────────────────────────────────────────── */
+  --text-primary:      #F5F5F5;
+  --text-secondary:    #ABABAB;
+  --text-muted:        #666666;
+  --text-placeholder:  #444444;
+  --text-on-accent:    #FFFFFF;
+  --text-on-light:     #0A0A0A;
+
+  /* ── Accent (Electric Blue) ──────────────────────────────── */
+  --accent:            #00BFFF;
+  --accent-hover:      #1ACCFF;
+  --accent-active:     #0099CC;
+  --accent-glow:       rgba(0, 191, 255, 0.18);
+  --accent-subtle:     rgba(0, 191, 255, 0.08);
+  --accent-border:     rgba(0, 191, 255, 0.30);
+
+  /* ── Borders ─────────────────────────────────────────────── */
+  --border-subtle:     #1E1E1E;
+  --border-default:    #2A2A2A;
+  --border-strong:     #3A3A3A;
+  --border-accent:     rgba(0, 191, 255, 0.35);
+
+  /* ── Semantic ────────────────────────────────────────────── */
+  --success:           #22C55E;
+  --success-subtle:    rgba(34, 197, 94, 0.10);
+  --warning:           #F59E0B;
+  --warning-subtle:    rgba(245, 158, 11, 0.10);
+  --error:             #EF4444;
+  --error-subtle:      rgba(239, 68, 68, 0.10);
+
+  /* ── Typography ──────────────────────────────────────────── */
+  --font-display:      'Syne', sans-serif;
+  --font-body:         'Inter', sans-serif;
+  --font-mono:         'JetBrains Mono', monospace;
+
+  --text-xs:           0.6875rem;   /* 11px */
+  --text-sm:           0.75rem;     /* 12px */
+  --text-base:         0.875rem;    /* 14px */
+  --text-md:           1rem;        /* 16px */
+  --text-lg:           1.125rem;    /* 18px */
+  --text-xl:           1.25rem;     /* 20px */
+  --text-2xl:          1.5rem;      /* 24px */
+  --text-3xl:          2.25rem;     /* 36px */
+  --text-4xl:          3rem;        /* 48px */
+  --text-5xl:          4.5rem;      /* 72px */
+  --text-display:      clamp(3rem, 8vw, 6rem);
+
+  /* ── Spacing (4px base) ──────────────────────────────────── */
+  --sp-1:  0.25rem;   /*  4px */
+  --sp-2:  0.5rem;    /*  8px */
+  --sp-3:  0.75rem;   /* 12px */
+  --sp-4:  1rem;      /* 16px */
+  --sp-5:  1.25rem;   /* 20px */
+  --sp-6:  1.5rem;    /* 24px */
+  --sp-8:  2rem;      /* 32px */
+  --sp-10: 2.5rem;    /* 40px */
+  --sp-12: 3rem;      /* 48px */
+  --sp-16: 4rem;      /* 64px */
+  --sp-20: 5rem;      /* 80px */
+  --sp-24: 6rem;      /* 96px */
+  --sp-30: 7.5rem;    /* 120px */
+
+  /* ── Layout ──────────────────────────────────────────────── */
+  --container-max:     1280px;
+  --container-narrow:  960px;
+  --container-pad:     clamp(1.25rem, 4vw, 5rem);
+  --nav-height:        68px;
+  --section-pad:       clamp(3.75rem, 8vw, 7.5rem);
+
+  /* ── Border Radius ───────────────────────────────────────── */
+  --radius-sm:   3px;
+  --radius-md:   6px;
+  --radius-lg:   10px;
+  --radius-xl:   16px;
+  --radius-pill: 9999px;
+
+  /* ── Shadows ─────────────────────────────────────────────── */
+  --shadow-sm:   0 1px 4px rgba(0, 0, 0, 0.4);
+  --shadow-md:   0 4px 16px rgba(0, 0, 0, 0.5);
+  --shadow-lg:   0 12px 40px rgba(0, 0, 0, 0.6);
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.40);
+  --shadow-card-hover: 0 16px 40px rgba(0, 0, 0, 0.65);
+  --shadow-accent: 0 8px 24px rgba(0, 191, 255, 0.22);
+
+  /* ── Transitions ─────────────────────────────────────────── */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-enter:    cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-exit:     cubic-bezier(0.4, 0, 1, 1);
+  --ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --dur-instant:   100ms;
+  --dur-fast:      150ms;
+  --dur-base:      250ms;
+  --dur-slow:      350ms;
+  --dur-enter:     400ms;
+  --dur-exit:      300ms;
+
+  --transition-fast:   var(--dur-fast)  var(--ease-standard);
+  --transition-base:   var(--dur-base)  var(--ease-standard);
+  --transition-slow:   var(--dur-slow)  var(--ease-standard);
+  --transition-enter:  var(--dur-enter) var(--ease-enter);
+  --transition-exit:   var(--dur-exit)  var(--ease-exit);
+
+  /* ── Z-index layers ──────────────────────────────────────── */
+  --z-base:     1;
+  --z-dropdown: 50;
+  --z-sticky:   80;
+  --z-nav:      90;
+  --z-drawer:   100;
+  --z-overlay:  99;
+  --z-toast:    110;
+  --z-modal:    120;
+}

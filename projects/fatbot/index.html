@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FatBot Mini App</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+:root{
+  --bg:#0a0a1a;--bgm:#0d0d2b;
+  --acc:#7c5cfc;--acc2:#a78bfa;
+  --prot:#34d399;--fat:#f59e0b;--carb:#60a5fa;--water:#38bdf8;
+  --text:#f0f0ff;--sub:rgba(240,240,255,0.55);--sub2:rgba(240,240,255,0.25);
+  --card:rgba(255,255,255,0.06);--card-b:rgba(255,255,255,0.10);
+  --font:-apple-system,'SF Pro Display','Segoe UI',sans-serif;
+}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--font);overflow:hidden;}
+body{display:flex;flex-direction:column;background:linear-gradient(160deg,var(--bg) 0%,var(--bgm) 50%,var(--bg) 100%);}
+
+/* PAGES */
+.page{display:none;flex:1;overflow-y:auto;padding:16px 14px 88px;flex-direction:column;}
+.page.active{display:flex;}
+.page::-webkit-scrollbar{width:0;}
+
+/* TAB BAR */
+.tabbar{
+  position:fixed;bottom:0;left:0;right:0;
+  background:rgba(10,10,26,0.96);
+  border-top:1px solid rgba(255,255,255,0.07);
+  display:flex;padding:8px 0 20px;
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  z-index:10;
+}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;border:none;background:none;color:inherit;}
+.tab-icon{font-size:20px;transition:transform 0.15s;}
+.tab:active .tab-icon{transform:scale(0.88);}
+.tab-lbl{font-size:10px;font-weight:600;letter-spacing:0.3px;transition:color 0.2s;}
+.tab.active .tab-lbl{color:var(--acc2);}
+.tab:not(.active) .tab-lbl{color:var(--sub2);}
+
+/* COMMON */
+.card{background:var(--card);border:1px solid var(--card-b);border-radius:20px;padding:18px;margin-bottom:12px;}
+.sec-title{font-size:15px;font-weight:700;margin-bottom:14px;}
+.row{display:flex;align-items:center;justify-content:space-between;}
+
+/* TODAY */
+.greeting{font-size:22px;font-weight:800;margin-bottom:2px;}
+.date-str{font-size:13px;color:var(--sub);margin-bottom:18px;}
+/* Ring */
+.ring-wrap{text-align:center;padding:20px 18px;}
+.ring-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.ring-stat{flex:1;text-align:center;}
+.ring-num{font-size:20px;font-weight:800;}
+.ring-sub{font-size:11px;color:var(--sub);margin-top:2px;}
+.ring-svg-wrap{position:relative;width:170px;height:170px;flex-shrink:0;cursor:pointer;}
+.ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.ring-big{font-size:26px;font-weight:800;}
+.ring-label{font-size:12px;color:var(--sub);}
+.ring-limit{font-size:12px;color:var(--sub2);text-align:center;margin-top:6px;}
+/* Macros */
+.macro-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.macro-row:last-child{margin-bottom:0;}
+.macro-lbl{width:72px;font-size:13px;color:var(--sub);font-weight:500;}
+.bar-track{flex:1;height:7px;background:rgba(255,255,255,0.08);border-radius:4px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:4px;transition:width 0.5s ease;}
+.macro-val{font-size:12px;font-weight:600;width:76px;text-align:right;}
+.macro-val .dim{color:var(--sub2);}
+/* Water */
+.water-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.water-btn{background:linear-gradient(135deg,var(--acc),var(--acc2));border:none;border-radius:10px;padding:7px 14px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;transition:opacity 0.15s,transform 0.1s;}
+.water-btn:active{opacity:0.8;transform:scale(0.97);}
+.glasses{display:flex;gap:7px;justify-content:center;}
+.glass{width:30px;height:30px;border-radius:8px;cursor:pointer;transition:all 0.2s;border:2px solid rgba(255,255,255,0.08);}
+.glass.full{background:var(--water);box-shadow:0 0 10px rgba(56,189,248,0.45);border-color:transparent;}
+.glass.empty{background:rgba(255,255,255,0.06);}
+.water-info{color:var(--sub);font-size:12px;text-align:center;margin-top:8px;}
+/* Meals */
+.meal-hd{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
+.meal-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.meal-name{flex:1;font-size:14px;font-weight:700;color:var(--sub);}
+.meal-cal{font-size:13px;font-weight:700;}
+.entry{display:flex;align-items:center;gap:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.06);margin-top:4px;}
+.entry-accent{width:3px;height:36px;border-radius:2px;flex-shrink:0;}
+.entry-info{flex:1;}
+.entry-name{font-size:14px;font-weight:600;}
+.entry-sub{font-size:11px;color:var(--sub);margin-top:2px;}
+.entry-del{background:rgba(248,113,113,0.15);border:none;border-radius:50%;width:28px;height:28px;color:#f87171;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background 0.15s;}
+.entry-del:hover{background:rgba(248,113,113,0.25);}
+
+/* ADD PAGE */
+.add-page{padding:24px 14px 88px;}
+.add-title{font-size:22px;font-weight:800;margin-bottom:20px;}
+.search-bar{background:var(--card);border:1px solid var(--card-b);border-radius:14px;display:flex;align-items:center;gap:10px;padding:12px 16px;margin-bottom:20px;}
+.search-bar input{flex:1;background:none;border:none;color:var(--text);font-size:0.95rem;outline:none;font-family:var(--font);}
+.search-bar input::placeholder{color:var(--sub);}
+.quick-adds{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px;}
+.quick-item{background:var(--card);border:1px solid var(--card-b);border-radius:16px;padding:14px;cursor:pointer;transition:background 0.2s,transform 0.1s;}
+.quick-item:active{transform:scale(0.97);}
+.quick-emo{font-size:24px;margin-bottom:6px;}
+.quick-name{font-size:13px;font-weight:600;}
+.quick-kcal{font-size:12px;color:var(--sub);margin-top:2px;}
+
+/* STATS PAGE */
+.stat-card{background:var(--card);border:1px solid var(--card-b);border-radius:20px;padding:18px;margin-bottom:12px;}
+.stat-card-title{font-size:13px;color:var(--sub);font-weight:600;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:16px;}
+.week-bars{display:flex;gap:8px;align-items:flex-end;height:80px;}
+.week-bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;}
+.week-bar{width:100%;border-radius:5px 5px 0 0;min-height:4px;transition:height 0.4s ease;}
+.week-bar.today{box-shadow:0 0 10px rgba(124,92,252,0.5);}
+.week-day{font-size:10px;color:var(--sub);font-weight:600;}
+.week-kcal{font-size:9px;color:var(--sub2);}
+.streak-row{display:flex;gap:10px;}
+.streak-item{flex:1;background:var(--card);border:1px solid var(--card-b);border-radius:14px;padding:14px;text-align:center;}
+.streak-num{font-size:28px;font-weight:800;background:linear-gradient(135deg,var(--acc),var(--acc2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.streak-lbl{font-size:11px;color:var(--sub);margin-top:3px;}
+
+/* PROFILE PAGE */
+.prof-header{text-align:center;padding:24px 0 20px;}
+.prof-avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--acc),var(--acc2));margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:36px;}
+.prof-name{font-size:20px;font-weight:800;margin-bottom:4px;}
+.prof-sub{font-size:14px;color:var(--sub);}
+.prof-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px;}
+.ps-item{background:var(--card);border:1px solid var(--card-b);border-radius:14px;padding:14px;text-align:center;}
+.ps-num{font-size:22px;font-weight:800;}
+.ps-lbl{font-size:11px;color:var(--sub);margin-top:2px;}
+.settings-list{display:flex;flex-direction:column;gap:1px;background:var(--card-b);border-radius:16px;overflow:hidden;}
+.settings-row{display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--card);cursor:pointer;transition:background 0.15s;}
+.settings-row:hover{background:rgba(255,255,255,0.09);}
+.settings-icon{font-size:18px;width:28px;text-align:center;}
+.settings-lbl{flex:1;font-size:14px;font-weight:500;}
+.settings-val{font-size:13px;color:var(--sub);}
+.settings-arr{color:var(--sub2);}
+
+/* PHOTO AI */
+.ai-page{padding:24px 14px 88px;text-align:center;}
+.ai-big{font-size:60px;margin:20px 0 16px;}
+.ai-title{font-size:22px;font-weight:800;margin-bottom:10px;}
+.ai-sub{font-size:14px;color:var(--sub);line-height:1.6;margin-bottom:32px;}
+.ai-upload{border:2px dashed rgba(124,92,252,0.4);border-radius:20px;padding:40px;margin-bottom:20px;cursor:pointer;transition:border-color 0.2s,background 0.2s;}
+.ai-upload:hover{border-color:var(--acc);background:rgba(124,92,252,0.05);}
+.ai-upload-icon{font-size:40px;margin-bottom:12px;}
+.ai-upload-text{font-size:14px;color:var(--sub);}
+.ai-btn{background:linear-gradient(135deg,var(--acc),var(--acc2));border:none;border-radius:14px;padding:16px 32px;color:#fff;font-size:15px;font-weight:700;cursor:pointer;width:100%;font-family:var(--font);transition:opacity 0.15s,transform 0.1s;}
+.ai-btn:active{opacity:0.85;transform:scale(0.98);}
+
+/* TOAST */
+.mini-toast{
+  position:fixed;bottom:96px;left:50%;transform:translateX(-50%) translateY(10px);
+  background:rgba(12,12,28,0.92);border:1px solid rgba(255,255,255,0.15);
+  backdrop-filter:blur(16px);border-radius:12px;padding:10px 20px;
+  font-size:13px;font-weight:600;color:#fff;white-space:nowrap;
+  opacity:0;transition:opacity 0.3s,transform 0.3s;pointer-events:none;z-index:20;
+}
+.mini-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+
+<!-- TODAY PAGE -->
+<div class="page active" id="page-today">
+  <div class="greeting">Good afternoon ☀️</div>
+  <div class="date-str">Wednesday, 11 June</div>
+
+  <div class="card ring-wrap">
+    <div class="ring-row">
+      <div class="ring-stat">
+        <div class="ring-num" id="eaten">1 245</div>
+        <div class="ring-sub">eaten</div>
+      </div>
+      <div class="ring-svg-wrap" id="ringWrap" title="Tap to update">
+        <svg width="170" height="170" viewBox="0 0 170 170">
+          <defs>
+            <linearGradient id="rg" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#7c5cfc"/>
+              <stop offset="100%" stop-color="#a78bfa"/>
+            </linearGradient>
+          </defs>
+          <circle cx="85" cy="85" r="68" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="10"/>
+          <circle id="ringArc" cx="85" cy="85" r="68" fill="none" stroke="url(#rg)" stroke-width="10"
+            stroke-dasharray="267 427" stroke-dashoffset="0"
+            stroke-linecap="round" transform="rotate(-90 85 85)" style="transition:stroke-dasharray 0.6s ease;"/>
+        </svg>
+        <div class="ring-center">
+          <div class="ring-big" id="ringPct">62%</div>
+          <div class="ring-label">kcal</div>
+        </div>
+      </div>
+      <div class="ring-stat">
+        <div class="ring-num" id="remaining">755</div>
+        <div class="ring-sub">left</div>
+      </div>
+    </div>
+    <div class="ring-limit">of 2 000 kcal per day</div>
+  </div>
+
+  <div class="card">
+    <div class="macro-row">
+      <div class="macro-lbl">Protein</div>
+      <div class="bar-track"><div class="bar-fill" id="bProt" style="width:57%;background:linear-gradient(90deg,#34d399,#6ee7b7)"></div></div>
+      <div class="macro-val">68<span class="dim">/120g</span></div>
+    </div>
+    <div class="macro-row">
+      <div class="macro-lbl">Fat</div>
+      <div class="bar-track"><div class="bar-fill" id="bFat" style="width:60%;background:linear-gradient(90deg,#f59e0b,#fcd34d)"></div></div>
+      <div class="macro-val">42<span class="dim">/70g</span></div>
+    </div>
+    <div class="macro-row">
+      <div class="macro-lbl">Carbs</div>
+      <div class="bar-track"><div class="bar-fill" id="bCarb" style="width:58%;background:linear-gradient(90deg,#60a5fa,#93c5fd)"></div></div>
+      <div class="macro-val">145<span class="dim">/250g</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="water-hd">
+      <span class="sec-title" style="margin:0">💧 Water</span>
+      <button class="water-btn" onclick="addWater()">+1 glass</button>
+    </div>
+    <div class="glasses" id="glasses"></div>
+    <div class="water-info" id="waterInfo">5 of 8 glasses</div>
+  </div>
+
+  <div class="card" id="meal-breakfast">
+    <div class="meal-hd">
+      <div class="meal-dot" style="background:#f59e0b"></div>
+      <span class="meal-name">🌅 Breakfast</span>
+      <span class="meal-cal" id="bfKcal" style="color:#f59e0b">382 kcal</span>
+    </div>
+    <div class="entry" id="e-oatmeal">
+      <div class="entry-accent" style="background:#f59e0b"></div>
+      <div class="entry-info">
+        <div class="entry-name">Oatmeal with milk</div>
+        <div class="entry-sub">250g · 186 kcal · P6 F4 C32</div>
+      </div>
+      <button class="entry-del" onclick="deleteEntry('e-oatmeal', 186)">✕</button>
+    </div>
+    <div class="entry" id="e-eggs">
+      <div class="entry-accent" style="background:#f59e0b"></div>
+      <div class="entry-info">
+        <div class="entry-name">Boiled eggs</div>
+        <div class="entry-sub">2 pcs · 196 kcal · P17 F13 C1</div>
+      </div>
+      <button class="entry-del" onclick="deleteEntry('e-eggs', 196)">✕</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="meal-hd">
+      <div class="meal-dot" style="background:#34d399"></div>
+      <span class="meal-name">☀️ Lunch</span>
+      <span class="meal-cal" style="color:#34d399">863 kcal</span>
+    </div>
+    <div class="entry" id="e-chicken">
+      <div class="entry-accent" style="background:#34d399"></div>
+      <div class="entry-info">
+        <div class="entry-name">Grilled chicken breast</div>
+        <div class="entry-sub">200g · 330 kcal · P62 F7 C0</div>
+      </div>
+      <button class="entry-del" onclick="deleteEntry('e-chicken', 330)">✕</button>
+    </div>
+    <div class="entry" id="e-buckwheat">
+      <div class="entry-accent" style="background:#34d399"></div>
+      <div class="entry-info">
+        <div class="entry-name">Buckwheat porridge</div>
+        <div class="entry-sub">150g · 198 kcal · P7 F2 C40</div>
+      </div>
+      <button class="entry-del" onclick="deleteEntry('e-buckwheat', 198)">✕</button>
+    </div>
+    <div class="entry" id="e-cucumber">
+      <div class="entry-accent" style="background:#34d399"></div>
+      <div class="entry-info">
+        <div class="entry-name">Fresh cucumber</div>
+        <div class="entry-sub">120g · 16 kcal · P1 F0 C3</div>
+      </div>
+      <button class="entry-del" onclick="deleteEntry('e-cucumber', 16)">✕</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD PAGE -->
+<div class="page" id="page-add">
+  <div class="add-title">Add meal</div>
+  <div class="search-bar">
+    <svg width="16" height="16" fill="none" stroke="rgba(240,240,255,0.4)" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input placeholder="Search food…" id="foodSearch">
+  </div>
+  <div style="font-size:12px;color:var(--sub);letter-spacing:0.08em;text-transform:uppercase;font-weight:600;margin-bottom:12px;">Quick Add</div>
+  <div class="quick-adds">
+    <div class="quick-item" onclick="quickAdd('🍗','Chicken breast','200g',330)"><div class="quick-emo">🍗</div><div class="quick-name">Chicken breast</div><div class="quick-kcal">330 kcal / 200g</div></div>
+    <div class="quick-item" onclick="quickAdd('🥣','Oatmeal','200g',156)"><div class="quick-emo">🥣</div><div class="quick-name">Oatmeal</div><div class="quick-kcal">156 kcal / 200g</div></div>
+    <div class="quick-item" onclick="quickAdd('🍌','Banana','1 pcs',89)"><div class="quick-emo">🍌</div><div class="quick-name">Banana</div><div class="quick-kcal">89 kcal / 1 pcs</div></div>
+    <div class="quick-item" onclick="quickAdd('🥚','Boiled egg','2 pcs',157)"><div class="quick-emo">🥚</div><div class="quick-name">Boiled egg</div><div class="quick-kcal">157 kcal / 2 pcs</div></div>
+    <div class="quick-item" onclick="quickAdd('🥛','Greek yogurt','200g',118)"><div class="quick-emo">🥛</div><div class="quick-name">Greek yogurt</div><div class="quick-kcal">118 kcal / 200g</div></div>
+    <div class="quick-item" onclick="quickAdd('🍚','White rice','150g',195)"><div class="quick-emo">🍚</div><div class="quick-name">White rice</div><div class="quick-kcal">195 kcal / 150g</div></div>
+  </div>
+</div>
+
+<!-- PHOTO AI PAGE -->
+<div class="page ai-page" id="page-photo">
+  <div class="ai-big">📷</div>
+  <div class="ai-title">Photo AI Recognition</div>
+  <div class="ai-sub">Take a photo of your meal and AI will automatically recognize the food and calculate calories.</div>
+  <div class="ai-upload" onclick="showToast('📷 Camera opened — demo mode')">
+    <div class="ai-upload-icon">📸</div>
+    <div class="ai-upload-text">Tap to take a photo</div>
+  </div>
+  <button class="ai-btn" onclick="showToast('🤖 AI analysis: 346 kcal detected!')">Analyse from gallery</button>
+</div>
+
+<!-- STATS PAGE -->
+<div class="page" id="page-stats">
+  <div style="padding-top:8px;">
+  <div class="stat-card">
+    <div class="stat-card-title">Weekly calories</div>
+    <div class="week-bars" id="weekBars"></div>
+  </div>
+  <div class="streak-row">
+    <div class="streak-item"><div class="streak-num">7</div><div class="streak-lbl">Day streak 🔥</div></div>
+    <div class="streak-item"><div class="streak-num">62%</div><div class="streak-lbl">Goal today</div></div>
+    <div class="streak-item"><div class="streak-num">14</div><div class="streak-lbl">Best streak</div></div>
+  </div>
+  <div class="stat-card" style="margin-top:12px;">
+    <div class="stat-card-title">Avg this week</div>
+    <div style="font-size:32px;font-weight:800;background:linear-gradient(135deg,#7c5cfc,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">1 857 kcal</div>
+    <div style="font-size:13px;color:var(--sub);margin-top:4px;">↓ 143 kcal below your goal</div>
+  </div>
+  </div>
+</div>
+
+<!-- PROFILE PAGE -->
+<div class="page" id="page-profile">
+  <div class="prof-header">
+    <div class="prof-avatar">👤</div>
+    <div class="prof-name">Markus</div>
+    <div class="prof-sub">Tracking since March 2024</div>
+  </div>
+  <div class="prof-stats">
+    <div class="ps-item"><div class="ps-num">89</div><div class="ps-lbl">Days tracked</div></div>
+    <div class="ps-item"><div class="ps-num">7</div><div class="ps-lbl">Day streak</div></div>
+    <div class="ps-item"><div class="ps-num">-3.2<span style="font-size:14px">kg</span></div><div class="ps-lbl">Progress</div></div>
+  </div>
+  <div class="settings-list">
+    <div class="settings-row" onclick="showToast('Goal updated!')"><span class="settings-icon">🎯</span><span class="settings-lbl">Daily goal</span><span class="settings-val">2000 kcal</span><span class="settings-arr"> ›</span></div>
+    <div class="settings-row" onclick="showToast('Weight saved!')"><span class="settings-icon">⚖️</span><span class="settings-lbl">Weight</span><span class="settings-val">74.2 kg</span><span class="settings-arr"> ›</span></div>
+    <div class="settings-row" onclick="showToast('Height saved!')"><span class="settings-icon">📏</span><span class="settings-lbl">Height</span><span class="settings-val">181 cm</span><span class="settings-arr"> ›</span></div>
+    <div class="settings-row" onclick="showToast('Notifications set!')"><span class="settings-icon">🔔</span><span class="settings-lbl">Reminders</span><span class="settings-val">09:00, 13:00</span><span class="settings-arr"> ›</span></div>
+    <div class="settings-row" onclick="showToast('Theme changed!')"><span class="settings-icon">🎨</span><span class="settings-lbl">Theme</span><span class="settings-val">Dark</span><span class="settings-arr"> ›</span></div>
+  </div>
+</div>
+
+<!-- TABBAR -->
+<div class="tabbar">
+  <button class="tab active" onclick="switchTab('today',this)"><span class="tab-icon">📋</span><span class="tab-lbl">Today</span></button>
+  <button class="tab" onclick="switchTab('add',this)"><span class="tab-icon">➕</span><span class="tab-lbl">Add</span></button>
+  <button class="tab" onclick="switchTab('photo',this)"><span class="tab-icon">📷</span><span class="tab-lbl">Photo AI</span></button>
+  <button class="tab" onclick="switchTab('stats',this)"><span class="tab-icon">📊</span><span class="tab-lbl">Stats</span></button>
+  <button class="tab" onclick="switchTab('profile',this)"><span class="tab-icon">👤</span><span class="tab-lbl">Profile</span></button>
+</div>
+
+<div class="mini-toast" id="miniToast"></div>
+
+<script>
+/* ── State ── */
+let waterCount = 5;
+let totalKcal  = 1245;
+const GOAL     = 2000;
+
+/* ── Water glasses ── */
+function renderGlasses() {
+  const wrap = document.getElementById('glasses');
+  wrap.innerHTML = '';
+  for (let i = 0; i < 8; i++) {
+    const g = document.createElement('div');
+    g.className = 'glass ' + (i < waterCount ? 'full' : 'empty');
+    g.title = i < waterCount ? 'Glass ' + (i+1) + ' (filled)' : 'Glass ' + (i+1);
+    g.onclick = () => { waterCount = i + 1; renderGlasses(); };
+    wrap.appendChild(g);
+  }
+  document.getElementById('waterInfo').textContent = waterCount + ' of 8 glasses';
+}
+
+function addWater() {
+  if (waterCount < 8) { waterCount++; renderGlasses(); showToast('💧 Water logged!'); }
+  else showToast('✅ Daily water goal reached!');
+}
+
+renderGlasses();
+
+/* ── Ring ── */
+function updateRing() {
+  const pct   = Math.min(100, Math.round(totalKcal / GOAL * 100));
+  const circ  = 2 * Math.PI * 68;
+  const dash  = (pct / 100) * circ;
+  document.getElementById('ringArc').setAttribute('stroke-dasharray', dash + ' ' + circ);
+  document.getElementById('ringPct').textContent = pct + '%';
+  document.getElementById('eaten').textContent   = totalKcal.toLocaleString();
+  document.getElementById('remaining').textContent = Math.max(0, GOAL - totalKcal).toLocaleString();
+}
+updateRing();
+
+/* ── Delete meal entry ── */
+function deleteEntry(id, kcal) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.style.transition = 'opacity 0.3s, max-height 0.4s, padding 0.3s';
+  el.style.opacity = '0';
+  el.style.maxHeight = el.offsetHeight + 'px';
+  requestAnimationFrame(() => {
+    el.style.maxHeight = '0';
+    el.style.paddingTop = '0';
+    el.style.marginTop = '0';
+  });
+  setTimeout(() => { el.remove(); totalKcal -= kcal; updateRing(); }, 380);
+  showToast('🗑 Entry removed');
+}
+
+/* ── Quick add ── */
+function quickAdd(emo, name, amount, kcal) {
+  totalKcal += kcal;
+  updateRing();
+  showToast(emo + ' ' + name + ' added · ' + kcal + ' kcal');
+  switchTab('today', document.querySelector('.tab'));
+}
+
+/* ── Tab switching ── */
+function switchTab(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+/* ── Weekly bars ── */
+function renderWeekBars() {
+  const days  = ['Mo','Tu','We','Th','Fr','Sa','Su'];
+  const kcals = [1840, 2210, 1245, 1780, 2050, 1920, 0];
+  const max   = Math.max(...kcals.filter(k => k > 0));
+  const wrap  = document.getElementById('weekBars');
+  wrap.innerHTML = '';
+  days.forEach((d, i) => {
+    const pct = kcals[i] ? (kcals[i] / max * 100) : 0;
+    const isToday = i === 2;
+    wrap.innerHTML += `
+      <div class="week-bar-wrap">
+        <div class="week-kcal">${kcals[i] ? kcals[i].toLocaleString() : ''}</div>
+        <div class="week-bar${isToday ? ' today' : ''}" style="height:${pct || 4}%;background:${isToday ? 'linear-gradient(180deg,#7c5cfc,#a78bfa)' : 'rgba(255,255,255,0.15)'}"></div>
+        <div class="week-day">${d}</div>
+      </div>`;
+  });
+}
+renderWeekBars();
+
+/* ── Toast ── */
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('miniToast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+}
+</script>
+</body>
+</html>

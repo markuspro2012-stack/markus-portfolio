@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout &mdash; Markus Pro</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/typography.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/pages/checkout.css">
+  <script src="https://js.stripe.com/v3/" async></script>
+</head>
+<body>
+
+<!-- ── Nav ─────────────────────────────────────────────────── -->
+<header class="checkout-nav">
+  <a href="index.html" class="checkout-nav-logo">MARKUS<span>PRO</span></a>
+  <span class="checkout-nav-secure">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="3" y="7" width="10" height="6" rx="1"/><path d="M5 7V5a3 3 0 016 0v2"/></svg>
+    Secure Checkout
+  </span>
+</header>
+
+<!-- ── Progress ─────────────────────────────────────────────── -->
+<div class="checkout-progress" id="checkout-progress" style="display:none">
+  <div class="progress-step" data-step="1">
+    <span class="step-num"><span class="step-i">1</span></span>
+    <span class="step-label">DELIVERY</span>
+  </div>
+  <div class="progress-sep"></div>
+  <div class="progress-step" data-step="2">
+    <span class="step-num"><span class="step-i">2</span></span>
+    <span class="step-label">PAYMENT</span>
+  </div>
+  <div class="progress-sep"></div>
+  <div class="progress-step" data-step="3">
+    <span class="step-num"><span class="step-i">3</span></span>
+    <span class="step-label">CONFIRMED</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     STEP 0 — CHOOSE MODE
+═══════════════════════════════════════════════════════════ -->
+<section class="checkout-step" id="step-0" style="padding-top: var(--sp-10)">
+  <div class="checkout-mode-intro">
+    <h2>How would you like to checkout?</h2>
+    <p>Choose guest checkout for a fast one-time purchase, or sign in to save your order history.</p>
+  </div>
+  <div class="mode-cards">
+    <button class="mode-card mode-card-signin" id="mode-signin" type="button">
+      <span class="mode-icon">👤</span>
+      <h3>Sign In / Register</h3>
+      <p>Track orders, saved address &amp; faster checkout next time</p>
+      <span class="mode-card-badge">Save &amp; Track</span>
+    </button>
+    <button class="mode-card mode-card-guest" id="mode-guest" type="button">
+      <span class="mode-icon">🛍</span>
+      <h3>Continue as Guest</h3>
+      <p>No account needed — quick &amp; easy checkout</p>
+      <span class="mode-card-badge">Recommended</span>
+    </button>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     STEP 1 — DELIVERY
+═══════════════════════════════════════════════════════════ -->
+<section class="checkout-step" id="step-1">
+  <h2 class="checkout-step-title">Delivery Details</h2>
+
+  <form id="form-delivery" novalidate>
+    <!-- Contact -->
+    <div class="checkout-form-section">
+      <p class="checkout-form-section-title">Contact Information</p>
+      <div class="form-grid">
+        <div class="field-group">
+          <label for="f-firstname">First Name *</label>
+          <input id="f-firstname" name="firstname" type="text" placeholder="John" autocomplete="given-name" required>
+        </div>
+        <div class="field-group">
+          <label for="f-lastname">Last Name *</label>
+          <input id="f-lastname" name="lastname" type="text" placeholder="Doe" autocomplete="family-name" required>
+        </div>
+        <div class="field-group">
+          <label for="f-email">Email *</label>
+          <input id="f-email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+        </div>
+        <div class="field-group">
+          <label for="f-phone">Phone</label>
+          <input id="f-phone" name="phone" type="tel" placeholder="+1 234 567 8900" autocomplete="tel">
+        </div>
+      </div>
+    </div>
+
+    <!-- Shipping address -->
+    <div class="checkout-form-section">
+      <p class="checkout-form-section-title">Shipping Address</p>
+      <div class="form-grid">
+        <div class="field-group field-full">
+          <label for="f-address">Street Address *</label>
+          <input id="f-address" name="address" type="text" placeholder="123 Main Street" autocomplete="street-address" required>
+        </div>
+        <div class="field-group">
+          <label for="f-city">City *</label>
+          <input id="f-city" name="city" type="text" placeholder="Berlin" autocomplete="address-level2" required>
+        </div>
+        <div class="field-group">
+          <label for="f-zip">Postal Code *</label>
+          <input id="f-zip" name="zip" type="text" placeholder="10115" autocomplete="postal-code" required>
+        </div>
+        <div class="field-group field-full">
+          <label for="f-country">Country *</label>
+          <select id="f-country" name="country" autocomplete="country" required>
+            <option value="">Select country…</option>
+            <option value="DE">Germany</option>
+            <option value="FR">France</option>
+            <option value="IT">Italy</option>
+            <option value="ES">Spain</option>
+            <option value="NL">Netherlands</option>
+            <option value="BE">Belgium</option>
+            <option value="PL">Poland</option>
+            <option value="AT">Austria</option>
+            <option value="SE">Sweden</option>
+            <option value="CH">Switzerland</option>
+            <option value="GB">United Kingdom</option>
+            <option value="US">United States</option>
+            <option value="CA">Canada</option>
+            <option value="AU">Australia</option>
+            <option value="RU">Russia</option>
+            <option value="UA">Ukraine</option>
+            <option value="KZ">Kazakhstan</option>
+            <option value="OTHER">Other</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Business (optional) -->
+    <div class="checkout-form-section">
+      <p class="checkout-form-section-title">Business Order <span class="section-optional">(optional)</span></p>
+      <div class="form-grid">
+        <div class="field-group">
+          <label for="f-company">Company Name</label>
+          <input id="f-company" name="company" type="text" placeholder="Acme GmbH" autocomplete="organization">
+        </div>
+        <div class="field-group">
+          <label for="f-vat">VAT Number</label>
+          <input id="f-vat" name="vat" type="text" placeholder="DE123456789">
+        </div>
+      </div>
+    </div>
+
+    <!-- Consent -->
+    <div class="consent-row">
+      <label class="consent-label">
+        <input id="f-consent" name="consent" type="checkbox" required>
+        <span>I agree to the <a href="#" class="consent-link">Terms of Service</a> and <a href="#" class="consent-link">Privacy Policy</a> *</span>
+      </label>
+    </div>
+
+    <div class="checkout-actions">
+      <button type="button" class="btn-back" id="back-to-mode">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5L5 9l4 4"/></svg>
+        Back
+      </button>
+      <button type="submit" class="btn-checkout-next">Continue to Payment &rarr;</button>
+    </div>
+  </form>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     STEP 2 — PAYMENT
+═══════════════════════════════════════════════════════════ -->
+<section class="checkout-step" id="step-2">
+  <div class="checkout-grid">
+
+    <!-- Order Summary -->
+    <div class="order-summary">
+      <div class="order-summary-header">Order Summary</div>
+      <div class="order-items" id="order-items"></div>
+      <div class="order-totals">
+        <div class="totals-row">
+          <span class="label">Subtotal</span>
+          <span class="value" id="summary-subtotal">€ 0</span>
+        </div>
+        <div class="totals-row">
+          <span class="label">Shipping</span>
+          <span class="value shipping-free">FREE</span>
+        </div>
+        <div class="totals-row is-total">
+          <span class="label">Total</span>
+          <span class="value" id="summary-total">€ 0</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payment Form -->
+    <div class="payment-form-wrap">
+      <p class="payment-form-title">Payment Details</p>
+
+      <div class="delivery-recap" id="delivery-recap"></div>
+      <button class="delivery-recap-edit" id="edit-delivery" type="button">Edit delivery info</button>
+
+      <form id="form-payment" novalidate>
+        <div class="stripe-test-notice">
+          <strong>TEST MODE</strong> — Use card <code>4242 4242 4242 4242</code>, any future date, any 3-digit CVV
+        </div>
+
+        <!-- Stripe Payment Element mounts here -->
+        <div id="payment-element" class="stripe-mount">
+          <p class="payment-loading">Loading payment form…</p>
+        </div>
+
+        <!-- Error display -->
+        <div id="payment-error" class="payment-error" style="display:none"></div>
+
+        <div class="checkout-actions">
+          <button type="button" class="btn-back" id="back-to-delivery">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5L5 9l4 4"/></svg>
+            Back
+          </button>
+          <button type="submit" class="btn-checkout-next" id="btn-pay">Pay Now &rarr;</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     STEP 3 — CONFIRMED
+═══════════════════════════════════════════════════════════ -->
+<section class="checkout-step" id="step-3">
+  <div class="checkout-confirmation">
+    <div class="confirmation-icon">
+      <svg width="36" height="36" fill="none" stroke="currentColor" stroke-width="2.2"
+        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 36 36">
+        <path d="M7 18l7 7 15-14"/>
+      </svg>
+    </div>
+    <h1 class="confirmation-title">Order Placed!</h1>
+    <div class="confirmation-order-num" id="conf-order-num">MP-XXXXXXXX</div>
+    <p class="confirmation-text">
+      Thank you for your purchase.<br>
+      A confirmation will be sent to <span class="confirmation-email" id="conf-email"></span>
+    </p>
+    <div class="confirmation-total">Total: <span id="conf-total"></span></div>
+    <p class="confirmation-text" style="font-size:.8125rem">
+      Your order will be processed within 1–2 business days.<br>
+      Estimated delivery: <strong style="color:var(--text-primary)">5–10 business days</strong>
+    </p>
+    <div class="confirmation-actions">
+      <a href="catalog.html" class="btn-continue-shopping">Continue Shopping</a>
+      <a href="account.html" class="btn-view-account" id="conf-account-link" style="display:none">
+        View my orders &rarr;
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Toast ───────────────────────────────────────────────── -->
+<div id="mp-toast" class="toast" role="alert" aria-live="polite">
+  <span class="toast-icon"></span>
+  <span class="toast-msg"></span>
+  <button class="toast-close" aria-label="Close">&times;</button>
+</div>
+
+<!-- ── Scripts ─────────────────────────────────────────────── -->
+<script src="js/config.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/app.js"></script>
+<script src="js/checkout.js"></script>
+
+</body>
+</html>

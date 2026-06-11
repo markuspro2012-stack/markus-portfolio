@@ -1,0 +1,159 @@
+/* ============================================================
+   MARKUS PRO — Animations
+   All @keyframes live here. Only transform + opacity used
+   (GPU-accelerated, no layout triggers).
+============================================================ */
+
+/* ── Entrance ────────────────────────────────────────────── */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* ── Page entrance ───────────────────────────────────────── */
+
+.page-enter {
+  animation: fadeIn var(--dur-enter) var(--ease-standard) both;
+}
+
+/* ── Product card entrance with stagger ─────────────────── */
+
+.card-enter {
+  animation: fadeInUp 400ms var(--ease-standard) both;
+  animation-delay: calc(var(--card-i, 0) * 60ms);
+}
+
+/* ── Micro-interactions ──────────────────────────────────── */
+
+@keyframes heartPulse {
+  0%   { transform: scale(1); }
+  30%  { transform: scale(1.35); }
+  60%  { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}
+
+.heart-pulse {
+  animation: heartPulse 400ms var(--ease-standard);
+}
+
+@keyframes badgePop {
+  0%   { transform: scale(0.6); }
+  60%  { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+
+.badge-pop {
+  animation: badgePop 300ms var(--ease-standard);
+}
+
+/* ── Spinner ─────────────────────────────────────────────── */
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border-default);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+/* ── Skeleton shimmer ────────────────────────────────────── */
+
+@keyframes shimmer {
+  from { background-position: -400px 0; }
+  to   { background-position: 400px 0; }
+}
+
+.skeleton {
+  border-radius: var(--radius-sm);
+  background: linear-gradient(
+    90deg,
+    var(--bg-card) 25%,
+    var(--bg-card-hover) 50%,
+    var(--bg-card) 75%
+  );
+  background-size: 800px 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+/* ── Scroll-to-top button ────────────────────────────────── */
+
+.scroll-top-btn {
+  position: fixed;
+  bottom: var(--sp-8);
+  right: var(--sp-8);
+  width: 44px;
+  height: 44px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  cursor: pointer;
+  z-index: var(--z-sticky);
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity var(--transition-base),
+    transform var(--transition-base),
+    background var(--transition-fast),
+    color var(--transition-fast);
+  pointer-events: none;
+}
+
+.scroll-top-btn.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.scroll-top-btn:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #000;
+}
+
+/* ── Prefers reduced motion ──────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .card-enter,
+  .page-enter,
+  .heart-pulse,
+  .badge-pop,
+  .spinner { animation: none !important; }
+
+  .skeleton {
+    background: var(--bg-card);
+    animation: none;
+  }
+
+  .scroll-top-btn { transition: opacity 0ms; }
+}
