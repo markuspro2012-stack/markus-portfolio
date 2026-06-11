@@ -587,20 +587,6 @@ img { display: block; max-width: 100%; }
         0 60px 120px rgba(0,0,0,0.92),
         0 0 80px rgba(82,136,193,0.06);
 }
-/* Dynamic Island overlay (::before = pill at top of phone screen) */
-.overlay-body.phone-mode::before {
-    content: '';
-    position: absolute;
-    z-index: 10;
-    pointer-events: none;
-    width: 120px; height: 34px;
-    background: #000;
-    border-radius: 20px;
-    border: 1.5px solid #2a2a2a;
-    /* Centre it horizontally, place it at top of the phone screen */
-    left: 50%; top: 50%;
-    transform: translate(-50%, calc(-1 * min(406px, 50% - 20px)));
-}
 
 /* ══════════════════════════════════════
    RESPONSIVE
