@@ -5,15 +5,16 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-    --bg:       #FAFAF7;
-    --bg2:      #F2EFE9;
-    --bg3:      #E8E4DC;
+    --bg:       #F5F2EB;
+    --bg2:      #EDE9E0;
+    --bg3:      #E2DDD3;
     --bg-dark:  #0F0F0F;
     --text:     #0C0C0C;
-    --text2:    #6A6866;
-    --text3:    #AEABA5;
-    --border:   rgba(12,12,12,0.10);
-    --border2:  rgba(12,12,12,0.06);
+    --text2:    #46423F;
+    --text3:    #867F78;
+    --border:   rgba(12,12,12,0.13);
+    --border2:  rgba(12,12,12,0.07);
+    --acc:      #C4913A;
 
     --font-d: 'Fraunces', Georgia, serif;
     --font-s: 'DM Sans', system-ui, -apple-system, sans-serif;
@@ -123,7 +124,10 @@ img { display: block; max-width: 100%; }
 /* ══════════════════════════════════════
    HERO
 ══════════════════════════════════════ */
-.hero { padding: 168px 0 88px; text-align: center; }
+.hero {
+    padding: 168px 0 88px; text-align: center;
+    background: radial-gradient(ellipse 75% 55% at 50% -5%, rgba(196,145,58,0.09) 0%, transparent 65%);
+}
 .hero-badge {
     display: inline-flex; align-items: center; gap: 8px;
     background: var(--bg2); border: 1px solid var(--border);
@@ -209,9 +213,9 @@ img { display: block; max-width: 100%; }
     display: inline-flex; align-items: center; gap: 7px;
     font-size: 0.76rem; font-weight: 600;
     letter-spacing: 0.11em; text-transform: uppercase;
-    color: var(--text3); margin-bottom: 18px;
+    color: var(--text2); margin-bottom: 18px;
 }
-.sec-label::before { content: '•'; font-size: 0.65rem; }
+.sec-label::before { content: '•'; font-size: 0.65rem; color: var(--acc); }
 .sec-title {
     font-family: var(--font-d);
     font-size: clamp(2.4rem, 5vw, 4rem);
@@ -232,23 +236,24 @@ img { display: block; max-width: 100%; }
     border-radius: var(--r-card); overflow: hidden;
 }
 .skill-card {
-    background: var(--bg); padding: 36px 32px;
+    background: var(--bg2); padding: 36px 32px;
     transition: background 0.3s var(--ease);
 }
-.skill-card:hover { background: var(--bg2); }
+.skill-card:hover { background: var(--bg3); }
 .sk-num {
     font-family: var(--font-d); font-size: 0.72rem;
-    color: var(--text3); display: block;
+    color: var(--acc); display: block;
     margin-bottom: 20px; font-weight: 600; font-style: italic;
+    opacity: 0.7;
 }
 .sk-icon {
-    width: 44px; height: 44px; background: var(--bg2);
+    width: 44px; height: 44px; background: var(--bg3);
     border-radius: 12px; display: flex;
     align-items: center; justify-content: center;
     margin-bottom: 18px; color: var(--text);
     transition: background 0.3s;
 }
-.skill-card:hover .sk-icon { background: var(--bg3); }
+.skill-card:hover .sk-icon { background: rgba(196,145,58,0.13); }
 .sk-name {
     font-family: var(--font-d); font-size: 1.25rem;
     font-weight: 700; margin-bottom: 8px; letter-spacing: -0.02em;
@@ -259,7 +264,7 @@ img { display: block; max-width: 100%; }
    PORTFOLIO
 ══════════════════════════════════════ */
 .portfolio-head { margin-bottom: 72px; }
-.portfolio-list { display: flex; flex-direction: column; gap: 80px; }
+.portfolio-list { display: flex; flex-direction: column; gap: 100px; }
 .proj-item {}
 .proj-meta-row {
     display: flex; align-items: center;
@@ -300,12 +305,12 @@ img { display: block; max-width: 100%; }
     transition: gap 0.25s var(--ease), border-color 0.25s;
     white-space: nowrap;
 }
-.proj-link:hover { gap: 12px; border-color: var(--text); }
+.proj-link:hover { gap: 12px; border-color: var(--acc); color: var(--acc); }
 
 /* Project card (image/mock area) */
 .proj-card {
     background: var(--bg-dark); border-radius: 24px;
-    overflow: hidden; height: 440px; position: relative;
+    overflow: hidden; height: 480px; position: relative;
 }
 .proj-card img {
     width: 100%; height: 100%;
@@ -354,8 +359,8 @@ img { display: block; max-width: 100%; }
 .srv-item:first-child { border-top: 1px solid var(--border); }
 .srv-num {
     font-family: var(--font-d); font-size: 0.8rem;
-    color: var(--text3); font-weight: 600;
-    font-style: italic; padding-top: 4px;
+    color: var(--acc); font-weight: 600;
+    font-style: italic; padding-top: 4px; opacity: 0.75;
 }
 .srv-title {
     font-family: var(--font-d); font-size: 1.55rem;
@@ -412,8 +417,8 @@ img { display: block; max-width: 100%; }
     -webkit-appearance: none;
 }
 .fg input:focus, .fg select:focus, .fg textarea:focus {
-    border-color: rgba(12,12,12,0.35);
-    box-shadow: 0 0 0 3px rgba(12,12,12,0.05);
+    border-color: rgba(196,145,58,0.5);
+    box-shadow: 0 0 0 3px rgba(196,145,58,0.08);
     background: var(--bg);
 }
 .fg input::placeholder, .fg textarea::placeholder { color: var(--text3); }
