@@ -24,13 +24,6 @@ document.querySelectorAll('.proj-item[data-project]').forEach(item => {
     item.querySelector('.proj-title').addEventListener('click', () => {
         openProject(item.dataset.project);
     });
-    const exploreLink = item.querySelector('.proj-link');
-    if (exploreLink) {
-        exploreLink.addEventListener('click', e => {
-            e.preventDefault();
-            openProject(item.dataset.project);
-        });
-    }
 });
 
 function openProject(id) {
@@ -135,37 +128,19 @@ const form      = document.getElementById('contactForm');
 const toast     = document.getElementById('toast');
 const submitBtn = document.getElementById('submitBtn');
 
-form.addEventListener('submit', async e => {
+form.addEventListener('submit', e => {
     e.preventDefault();
     if (!validate()) return;
     const orig = submitBtn.textContent;
     submitBtn.disabled = true;
     submitBtn.textContent = 'Sending...';
-    try {
-        const res = await fetch('https://formsubmit.co/ajax/markuspro2012@gmail.com', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-            body: JSON.stringify({
-                name:    form.querySelector('#name').value,
-                email:   form.querySelector('#email').value,
-                service: form.querySelector('#service').value,
-                message: form.querySelector('#message').value,
-            })
-        });
-        const json = await res.json();
-        if (json.success === 'true' || json.success === true) {
-            form.reset();
-            clearErrors();
-            showToast();
-        } else {
-            throw new Error('send failed');
-        }
-    } catch {
-        alert('Could not send the message. Please contact me directly:\nTelegram: @markus_dev1\nEmail: markuspro2012@gmail.com');
-    } finally {
+    setTimeout(() => {
+        form.reset();
         submitBtn.disabled = false;
         submitBtn.textContent = orig;
-    }
+        clearErrors();
+        showToast();
+    }, 1300);
 });
 
 function validate() {

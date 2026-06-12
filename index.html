@@ -18,8 +18,8 @@
             <a class="nav-logo" href="#hero">Markus.</a>
             <ul class="nav-links">
                 <li><a href="#skills">Skills</a></li>
-                <li><a href="#portfolio">Work</a></li>
                 <li><a href="#services">Services</a></li>
+                <li><a href="#portfolio">Work</a></li>
             </ul>
             <a href="#contact" class="nav-cta">Hire me →</a>
             <button class="burger" id="burger" aria-label="Menu" aria-expanded="false">
@@ -28,8 +28,8 @@
         </div>
         <div class="nav-drawer" id="navDrawer">
             <a href="#skills">Skills</a>
-            <a href="#portfolio">Work</a>
             <a href="#services">Services</a>
+            <a href="#portfolio">Work</a>
             <a href="#contact">Hire me →</a>
         </div>
     </nav>
@@ -143,6 +143,42 @@
         </div>
     </section>
 
+    <!-- SERVICES / WHAT DO YOU NEED -->
+    <section class="section" id="services">
+        <div class="container">
+            <div class="what-head reveal">
+                <p class="sec-label">What I Build</p>
+                <h2 class="sec-title">What do you<br><em>need?</em></h2>
+            </div>
+            <div class="what-cards">
+                <a href="#fatcal" class="what-card reveal">
+                    <span class="wc-tag">Telegram Bot</span>
+                    <h3 class="wc-title">Automation &amp; bots</h3>
+                    <p class="wc-desc">Customer service, orders, notifications, payments — all automated inside Telegram.</p>
+                    <span class="wc-cta">See example ↓</span>
+                </a>
+                <a href="#fatbot" class="what-card reveal" style="--delay:80ms">
+                    <span class="wc-tag">Telegram Mini App</span>
+                    <h3 class="wc-title">Web apps in Telegram</h3>
+                    <p class="wc-desc">Full product experiences — catalog, checkout, profile — without leaving the messenger.</p>
+                    <span class="wc-cta">See example ↓</span>
+                </a>
+                <a href="#markuspro" class="what-card reveal" style="--delay:160ms">
+                    <span class="wc-tag">Website</span>
+                    <h3 class="wc-title">Sites that convert</h3>
+                    <p class="wc-desc">Landing pages, e-commerce, product showcases — fast, responsive, and SEO-ready.</p>
+                    <span class="wc-cta">See example ↓</span>
+                </a>
+                <a href="#ordersys" class="what-card reveal" style="--delay:240ms">
+                    <span class="wc-tag">Web App</span>
+                    <h3 class="wc-title">Dashboards &amp; tools</h3>
+                    <p class="wc-desc">Internal apps, order management, admin panels — built to scale with your team.</p>
+                    <span class="wc-cta">See example ↓</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
     <!-- PORTFOLIO -->
     <section class="section section-alt" id="portfolio">
         <div class="container">
@@ -154,7 +190,7 @@
             <div class="portfolio-list">
 
                 <!-- 01 -->
-                <div class="proj-item reveal" data-project="fatcal">
+                <div class="proj-item reveal" id="fatcal" data-project="fatcal">
                     <div class="proj-meta-row">
                         <span class="proj-tag">Telegram Bot</span>
                         <span class="proj-year">2024</span>
@@ -165,7 +201,7 @@
                         <div class="proj-tech">
                             <span>Python</span><span>aiogram 3</span><span>Supabase</span><span>PostgreSQL</span>
                         </div>
-                        <a href="#" class="proj-link">Explore →</a>
+                        <a href="#" class="proj-link">Live demo →</a>
                     </div>
                     <div class="proj-card">
                         <div class="proj-card-mock">
@@ -181,7 +217,7 @@
                 </div>
 
                 <!-- 02 -->
-                <div class="proj-item reveal" data-project="fatbot">
+                <div class="proj-item reveal" id="fatbot" data-project="fatbot">
                     <div class="proj-meta-row">
                         <span class="proj-tag">Telegram Mini App</span>
                         <span class="proj-year">2024</span>
@@ -192,7 +228,7 @@
                         <div class="proj-tech">
                             <span>React</span><span>TypeScript</span><span>TG Web App API</span><span>CSS Modules</span>
                         </div>
-                        <a href="#" class="proj-link">Explore →</a>
+                        <a href="#" class="proj-link">Live demo →</a>
                     </div>
                     <div class="proj-card">
                         <img src="assets/fatbot.png" alt="FatBot Mini App" class="ss-mobile">
@@ -201,7 +237,7 @@
                 </div>
 
                 <!-- 03 -->
-                <div class="proj-item reveal" data-project="markuspro">
+                <div class="proj-item reveal" id="markuspro" data-project="markuspro">
                     <div class="proj-meta-row">
                         <span class="proj-tag">Website</span>
                         <span class="proj-year">2024</span>
@@ -212,7 +248,7 @@
                         <div class="proj-tech">
                             <span>HTML/CSS/JS</span><span>Supabase</span><span>Netlify</span><span>PostgreSQL</span>
                         </div>
-                        <a href="#" class="proj-link">Explore →</a>
+                        <a href="#" class="proj-link">Live demo →</a>
                     </div>
                     <div class="proj-card">
                         <img src="assets/markuspro.png" alt="Markus Pro Shop">
@@ -221,7 +257,7 @@
                 </div>
 
                 <!-- 04 -->
-                <div class="proj-item reveal" data-project="ordersys">
+                <div class="proj-item reveal" id="ordersys" data-project="ordersys">
                     <div class="proj-meta-row">
                         <span class="proj-tag">Web App</span>
                         <span class="proj-year">2024</span>
@@ -232,7 +268,7 @@
                         <div class="proj-tech">
                             <span>JavaScript</span><span>HTML/CSS</span><span>Supabase</span><span>REST API</span>
                         </div>
-                        <a href="#" class="proj-link">Explore →</a>
+                        <a href="#" class="proj-link">Live demo →</a>
                     </div>
                     <div class="proj-card">
                         <div class="proj-card-mock">
@@ -245,55 +281,6 @@
                         </div>
                         <span class="proj-badge">● Production Ready</span>
                     </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- SERVICES -->
-    <section class="section" id="services">
-        <div class="container">
-            <div class="services-head reveal">
-                <p class="sec-label">What I build</p>
-                <h2 class="sec-title">Services &amp;<br><em>expertise.</em></h2>
-            </div>
-            <div class="services-list">
-
-                <div class="srv-item reveal">
-                    <span class="srv-num">01</span>
-                    <div>
-                        <h3 class="srv-title">Website Development</h3>
-                        <p class="srv-desc">Fast, responsive sites and apps. Landing pages to full-featured SPAs with modern design and top performance scores.</p>
-                    </div>
-                    <span class="srv-arrow">↗</span>
-                </div>
-
-                <div class="srv-item reveal" style="--delay:60ms">
-                    <span class="srv-num">02</span>
-                    <div>
-                        <h3 class="srv-title">Telegram Bots</h3>
-                        <p class="srv-desc">Custom bots for automation, customer service, and payments. Built with aiogram 3 for reliability and scale.</p>
-                    </div>
-                    <span class="srv-arrow">↗</span>
-                </div>
-
-                <div class="srv-item reveal" style="--delay:120ms">
-                    <span class="srv-num">03</span>
-                    <div>
-                        <h3 class="srv-title">Telegram Mini Apps</h3>
-                        <p class="srv-desc">Full web apps inside Telegram. Bot integration, seamless UX — without leaving the messenger.</p>
-                    </div>
-                    <span class="srv-arrow">↗</span>
-                </div>
-
-                <div class="srv-item reveal" style="--delay:180ms">
-                    <span class="srv-num">04</span>
-                    <div>
-                        <h3 class="srv-title">Database Integration</h3>
-                        <p class="srv-desc">Solid backend with PostgreSQL or Supabase. Data modeling, REST API, and reliable storage for any app.</p>
-                    </div>
-                    <span class="srv-arrow">↗</span>
                 </div>
 
             </div>
